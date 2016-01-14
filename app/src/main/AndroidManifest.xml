@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.android.myapplication" >
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/logo_tcc2"
+        android:label="Receptes"
+        android:theme="@style/AppTheme" >
+        <activity
+            android:name=".LlistatReceptesActivity"
+            android:label="Les meves receptes" >
+        </activity>
+        <activity android:name=".ReceptaActivity" >
+        </activity>
+        <activity
+            android:name=".EditReceptaActivity"
+            android:label="Modifica la recepta"
+            android:windowSoftInputMode="stateHidden" >
+        </activity>
+        <activity
+            android:name=".SplashActivity"
+            android:label="" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".IngredientsSubstitutsActivity"
+            android:label="Ingredients Substituts"
+            android:windowSoftInputMode="stateHidden" >
+        </activity>
+        <activity
+            android:name=".EditIngredientsSubstitutsActivity"
+            android:label="Edita Substituts">
+        </activity>
+    </application>
+
+</manifest>
