@@ -11,6 +11,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.android.myapplication.data.Fotos;
 import com.example.android.myapplication.data.Recepta;
 import com.example.android.myapplication.data.ReceptesDAO;
 import com.example.android.myapplication.data.Utils;
@@ -25,44 +26,28 @@ import java.util.ArrayList;
  */
 public class GridViewAdapter extends BaseAdapter {
 
+    private final ArrayList<Recepta> receptes;
     private Context mContext;
     private static LayoutInflater inflater=null;
 
     private Bitmap[] mThumbIds;
     private String[] mThumbNoms;
 
-    private Bitmap loadImageFromStorage(String nom)
-    {
-        ContextWrapper cw = new ContextWrapper(mContext);
-        String path = cw.getDir("Receptes", Context.MODE_PRIVATE).getAbsolutePath();
-        try {
-            File f=new File(path, nom + ".jpg");
-            Bitmap b = BitmapFactory.decodeStream(new FileInputStream(f));
-            return b;
-        }
-        catch (FileNotFoundException e)
-        {
-            e.printStackTrace();
-        }
-        return null;
-    }
 
      private void omplmThumbIds() {
-        ReceptesDAO dao = new ReceptesDAO(mContext);
-        ArrayList<Recepta> list = dao.getAllReceptes();
-         //ArrayList<Recepta> list = dao.getReceptesPreferides();
-        mThumbIds = new Bitmap[list.size()];
-        mThumbNoms = new String[list.size()];
-        for (int i=0; i<list.size(); i++) {
-            Recepta rec = list.get(i);
+        //else { list = dao.getReceptesPreferides(); }
+        mThumbIds = new Bitmap[receptes.size()];
+        mThumbNoms = new String[receptes.size()];
+        for (int i=0; i<receptes.size(); i++) {
+            Recepta rec = receptes.get(i);
             mThumbNoms[i] = rec.getNom();
-            mThumbIds[i] = loadImageFromStorage(rec.getNom());
+            mThumbIds[i] = Fotos.loadImageFromStorage(mContext, rec.getNom());
         }
     }
 
-
-    public GridViewAdapter(Context c) {
+    public GridViewAdapter(Context c, ArrayList<Recepta> receptes) {
         mContext = c;
+        this.receptes = receptes;
         inflater = ( LayoutInflater )c.
                 getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         omplmThumbIds();

@@ -128,14 +128,8 @@ public class EditReceptaActivity extends ActionBarActivity implements View.OnCli
                 public void onClick(View view) {
                     nomIngredientToEdit = textV.getText().toString();
                     Intent i = new Intent (getApplicationContext(), EditIngredientsSubstitutsActivity.class);
-                    if (modificar) {
-                        i.putExtra(PARAM_RECEPTA_NAME, recepta.getNom());
-                        i.putExtra(PARAM_INGREDIENT_RECEPTA, nomIngredientToEdit);
-                    }
-                    else {
-                        ArrayList<String> ingredientsPerPassar = Ingredients_Substituts.get(nomIngredientToEdit);
-                        if (ingredientsPerPassar != null) i.putStringArrayListExtra(PARAM_ENVIAR_LLISTA_INGREDIENTS_SUBSTITUTS, ingredientsPerPassar);
-                    }
+                    ArrayList<String> ingredientsPerPassar = Ingredients_Substituts.get(nomIngredientToEdit);
+                    if (ingredientsPerPassar != null) i.putStringArrayListExtra(PARAM_ENVIAR_LLISTA_INGREDIENTS_SUBSTITUTS, ingredientsPerPassar);
                     startActivityForResult(i, REQUEST_CODE_EDIT_SUBSTITUTS);
                 }
             });
@@ -238,7 +232,9 @@ public class EditReceptaActivity extends ActionBarActivity implements View.OnCli
                 Ingredients_Substituts.remove(nomIngredientToEdit);
             }
             ArrayList<String> ingredientsSubstitut = data.getStringArrayListExtra(PARAM_REBRE_LLISTA_INGREDIENTS_SUBSTITUTS);
-            if (ingredientsSubstitut != null) Ingredients_Substituts.put(nomIngredientToEdit,ingredientsSubstitut);
+            if (ingredientsSubstitut != null) {
+                Ingredients_Substituts.put(nomIngredientToEdit, ingredientsSubstitut);
+            }
 
         }
     }

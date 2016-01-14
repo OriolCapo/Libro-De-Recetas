@@ -3,4 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools" tools:context=".LlistatReceptesActivity">
     <item android:id="@+id/action_settings" android:title="@string/action_settings"
         android:orderInCategory="100" app:showAsAction="never" />
+    <item android:id="@+id/menu_item_favourite"
+        android:title=""
+        android:icon="@drawable/ic_star_border_white_18dp"
+        android:orderInCategory="100" app:showAsAction="ifRoom" />
 </menu>

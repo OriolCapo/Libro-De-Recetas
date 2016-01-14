@@ -59,9 +59,9 @@ public class ReceptaActivity extends FragmentActivity {
         Intent i = getIntent();
         int position = i.getIntExtra("titol", -1);
         if (position != -1) {
-            GridViewAdapter adapter = new GridViewAdapter(this);
-            nomRecepta = adapter.getThumbName(position);
-            imatge.setImageBitmap(adapter.getThumbId(position));
+            //GridViewAdapter adapter = new GridViewAdapter(this, receptes);
+            //nomRecepta = adapter.getThumbName(position);
+            //imatge.setImageBitmap(adapter.getThumbId(position));
         }
         else {
             String nomR = i.getStringExtra("nomRecepta");
@@ -70,6 +70,8 @@ public class ReceptaActivity extends FragmentActivity {
                 imatge.setImageBitmap(Fotos.loadImageFromStorage(this, nomR));
             }
         }
+        ReceptesDAO rDAO = new ReceptesDAO(this);
+        if (rDAO.getIfFavourite(nomRecepta)) button_favourite.setImageResource(R.drawable.ic_star_white_18dp);
         titol.setText(Utils.llevaGuions(nomRecepta));
         imatge.setScaleType(ImageView.ScaleType.CENTER_CROP);
         mSectionsPagerAdapter = new SectionsPagerAdapter(

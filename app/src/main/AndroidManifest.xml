@@ -9,6 +9,7 @@
         android:theme="@style/AppTheme" >
         <activity
             android:name=".LlistatReceptesActivity"
+            android:windowSoftInputMode="stateHidden"
             android:label="Les meves receptes" >
         </activity>
         <activity android:name=".ReceptaActivity" >

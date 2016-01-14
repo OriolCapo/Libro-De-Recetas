@@ -139,6 +139,20 @@ public class ReceptesDAO {
         return allRec;
     }
 
+    public ArrayList<String> getAllReceptesNames() {
+        open();
+        ArrayList<String> allRec = new ArrayList<>();
+        Cursor cursor = database.query(DbHelper.ReceptaContracte.ReceptaEntry.TABLE_NAME, null, null, null, null, null, null);
+        if (cursor.moveToFirst()) {
+            do {
+                Recepta recepta = cursorToRecepta(cursor);
+                allRec.add(recepta.getNom());
+            } while (cursor.moveToNext());
+        }
+        close();
+        return allRec;
+    }
+
     public ArrayList<Recepta> getReceptesPreferides() {
         open();
         ArrayList<Recepta> receptesPreferides = new ArrayList<>();
