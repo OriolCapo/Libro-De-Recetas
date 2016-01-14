@@ -9,6 +9,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -23,6 +24,8 @@ public class ReceptaActivity extends FragmentActivity {
     private ReceptaActivity.SectionsPagerAdapter mSectionsPagerAdapter;
     private ViewPager mViewPager;
     private String nomRecepta;
+    private ImageButton button_favourite;
+    private boolean b = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +40,20 @@ public class ReceptaActivity extends FragmentActivity {
         });
         titol = (TextView) findViewById(R.id.titol);
         imatge = (ImageView)findViewById(R.id.img1);
+        button_favourite = (ImageButton) findViewById(R.id.imageButton_favourite);
+        findViewById(R.id.imageButton_favourite).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (b) {
+                    button_favourite.setBackground(getResources().getDrawable(R.drawable.ic_star_border_white_18dp));
+                    b = false;
+                }
+                else {
+                    button_favourite.setBackground((getResources().getDrawable(R.drawable.ic_star_white_18dp)));
+                    b = true;
+                }
+            }
+        });
         Intent i = getIntent();
         int position = i.getIntExtra("titol", -1);
         if (position != -1) {

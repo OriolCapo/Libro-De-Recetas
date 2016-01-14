@@ -329,7 +329,6 @@ public class EditReceptaActivity extends ActionBarActivity implements View.OnCli
 
             if (Ingredients_Substituts.containsKey(nomIngr)) {
                 ArrayList<String> ingrSubs = Ingredients_Substituts.get(nomIngr);
-                Toast.makeText(this,"Size of " + nomIngr + " substituts: " + ingrSubs.size(), Toast.LENGTH_SHORT).show();
                 for (int j = 0; j < ingrSubs.size(); j++) {
                     isDAO.createIngredientSubstitut(nomRecepta, nomIngr, ingrSubs.get(j));
                 }

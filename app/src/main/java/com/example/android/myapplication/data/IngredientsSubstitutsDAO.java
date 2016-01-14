@@ -38,7 +38,6 @@ public class IngredientsSubstitutsDAO {
         values.put(DbHelper.IngredientSubstitutContracte.IngredientSubstitutEntry.COLUMN_NAME_INGREDIENT_RECEPTA_NAME, nomIngredient);
         values.put(DbHelper.IngredientSubstitutContracte.IngredientSubstitutEntry.COLUMN_NAME_INGREDIENT_SUBSTITUT_NAME, nom);
         long insertId = database.insert(DbHelper.IngredientSubstitutContracte.IngredientSubstitutEntry.TABLE_NAME, null, values);
-        Toast.makeText(context, "id insertat = " + insertId, Toast.LENGTH_SHORT).show();
         close();
         return insertId;
     }
