@@ -54,14 +54,14 @@
     </android.support.v4.view.ViewPager>
 
     <ImageButton
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
         android:id="@+id/imageButton_edit"
-        android:src="@drawable/ic_mode_edit"
-        android:layout_marginBottom="15dp"
+        android:src="@drawable/ic_border_color_white_36dp"
         android:layout_marginRight="15dp"
+        android:layout_marginTop="15dp"
         android:background="@drawable/round_button_blue"
-        android:layout_alignBottom="@+id/img1"
+        android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true" />
 
 </RelativeLayout>

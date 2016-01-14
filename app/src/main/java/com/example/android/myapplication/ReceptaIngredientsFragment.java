@@ -59,8 +59,8 @@ public class ReceptaIngredientsFragment extends android.support.v4.app.Fragment 
         if (requestCode == REQUEST_CODE_INGREDIENTS_SUBSTITUTS && resultCode == Activity.RESULT_OK) {
             String ingredient = data.getStringExtra(IngredientsSubstitutsActivity.PARAM_NOM_INGREDIENT_SUBS);
             adapter = new ArrayAdapter<String>(rootView.getContext(), android.R.layout.simple_list_item_1, ingredientsToShow);
+            adapter.notifyDataSetChanged();
             listIngredients.setAdapter(adapter);
-            
         }
     }
 }
