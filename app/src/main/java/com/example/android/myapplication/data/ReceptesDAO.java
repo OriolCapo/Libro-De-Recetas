@@ -35,6 +35,7 @@ public class ReceptesDAO {
         values.put(DbHelper.ReceptaContracte.ReceptaEntry.COLUMN_NAME_RECEPTA_NAME, nom);
         values.put(DbHelper.ReceptaContracte.ReceptaEntry.COLUMN_NAME_RECEPTA_DESCRIPTION, descripcio);
         values.put(DbHelper.ReceptaContracte.ReceptaEntry.COLUMN_NAME_RECEPTA_SUGGERIMENTS, suggeriments);
+        values.put(DbHelper.ReceptaContracte.ReceptaEntry.COLUMN_NAME_FAVOURITE, "no");
         long insertId = database.insert(DbHelper.ReceptaContracte.ReceptaEntry.TABLE_NAME, null, values);
         close();
         return insertId;
@@ -69,6 +70,28 @@ public class ReceptesDAO {
         IngredientsSubstitutsDAO isDAO = new IngredientsSubstitutsDAO(context);
         isDAO.updateIngredientsSubstitutsOfRecepta(oldName, name);
         return quants;
+    }
+
+    public void updateReceptaFavourite (String nomRecepta, String favourite) {
+        open();
+        String whereclause = DbHelper.ReceptaContracte.ReceptaEntry.COLUMN_NAME_RECEPTA_NAME + " = '" + nomRecepta + "'";
+        ContentValues nouRegistre = new ContentValues();
+        nouRegistre.put(DbHelper.ReceptaContracte.ReceptaEntry.COLUMN_NAME_FAVOURITE, favourite);
+        database.update(DbHelper.ReceptaContracte.ReceptaEntry.TABLE_NAME, nouRegistre, whereclause, null);
+        close();
+    }
+
+    public boolean getIfFavourite (String nomRecepta) {
+        open();
+        boolean b = false;
+        String whereclause = DbHelper.ReceptaContracte.ReceptaEntry.COLUMN_NAME_RECEPTA_NAME + " = '" + nomRecepta + "'";
+        Cursor cursor = database.query(DbHelper.ReceptaContracte.ReceptaEntry.TABLE_NAME, null,
+                whereclause, null, null, null, null);
+        if (cursor.moveToFirst()) {
+            b = cursor.getString(cursor.getColumnIndex(DbHelper.ReceptaContracte.ReceptaEntry.COLUMN_NAME_FAVOURITE)).equals("si");
+        }
+        close();
+        return b;
     }
 
     public Recepta getRecepta(long id) {
@@ -114,5 +137,20 @@ public class ReceptesDAO {
         }
         close();
         return allRec;
+    }
+
+    public ArrayList<Recepta> getReceptesPreferides() {
+        open();
+        ArrayList<Recepta> receptesPreferides = new ArrayList<>();
+        String whereclause = DbHelper.ReceptaContracte.ReceptaEntry.COLUMN_NAME_FAVOURITE + " = 'si'";
+        Cursor cursor = database.query(DbHelper.ReceptaContracte.ReceptaEntry.TABLE_NAME, null, whereclause, null, null, null, null);
+        if (cursor.moveToFirst()) {
+            do {
+                Recepta recepta = cursorToRecepta(cursor);
+                receptesPreferides.add(recepta);
+            } while (cursor.moveToNext());
+        }
+        close();
+        return receptesPreferides;
     }
 }

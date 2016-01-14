@@ -18,7 +18,8 @@ public class DbHelper extends SQLiteOpenHelper {
                     ReceptaContracte.ReceptaEntry.COLUMN_NAME_RECEPTA_ID + " TEXT,"  +
                     ReceptaContracte.ReceptaEntry.COLUMN_NAME_RECEPTA_NAME + " TEXT," +
                     ReceptaContracte.ReceptaEntry.COLUMN_NAME_RECEPTA_DESCRIPTION + " TEXT," +
-                    ReceptaContracte.ReceptaEntry.COLUMN_NAME_RECEPTA_SUGGERIMENTS + " TEXT" +
+                    ReceptaContracte.ReceptaEntry.COLUMN_NAME_RECEPTA_SUGGERIMENTS + " TEXT," +
+                    ReceptaContracte.ReceptaEntry.COLUMN_NAME_FAVOURITE + " TEXT" +
                     ")";
 
     private static final String SQL_CREATE_ENTRIES_INGREDIENT =
@@ -66,6 +67,7 @@ public class DbHelper extends SQLiteOpenHelper {
             public static final String COLUMN_NAME_RECEPTA_NAME = "nom";
             public static final String COLUMN_NAME_RECEPTA_DESCRIPTION = "descripcio";
             public static final String COLUMN_NAME_RECEPTA_SUGGERIMENTS = "suggeriments";
+            public static final String COLUMN_NAME_FAVOURITE = "preferida";
         }
     }
 

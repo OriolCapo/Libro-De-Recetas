@@ -14,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.android.myapplication.data.Fotos;
+import com.example.android.myapplication.data.ReceptesDAO;
 import com.example.android.myapplication.data.Utils;
 
 public class ReceptaActivity extends FragmentActivity {
@@ -44,13 +45,14 @@ public class ReceptaActivity extends FragmentActivity {
         findViewById(R.id.imageButton_favourite).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (b) {
-                    button_favourite.setBackground(getResources().getDrawable(R.drawable.ic_star_border_white_18dp));
-                    b = false;
+                ReceptesDAO rDAO = new ReceptesDAO(getApplicationContext());
+                if (rDAO.getIfFavourite(nomRecepta)) {
+                    button_favourite.setImageResource(R.drawable.ic_star_border_white_18dp);
+                    rDAO.updateReceptaFavourite(nomRecepta, "no");
                 }
                 else {
-                    button_favourite.setBackground((getResources().getDrawable(R.drawable.ic_star_white_18dp)));
-                    b = true;
+                    button_favourite.setImageResource(R.drawable.ic_star_white_18dp);
+                    rDAO.updateReceptaFavourite(nomRecepta, "si");
                 }
             }
         });

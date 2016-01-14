@@ -50,6 +50,7 @@ public class GridViewAdapter extends BaseAdapter {
      private void omplmThumbIds() {
         ReceptesDAO dao = new ReceptesDAO(mContext);
         ArrayList<Recepta> list = dao.getAllReceptes();
+         //ArrayList<Recepta> list = dao.getReceptesPreferides();
         mThumbIds = new Bitmap[list.size()];
         mThumbNoms = new String[list.size()];
         for (int i=0; i<list.size(); i++) {
