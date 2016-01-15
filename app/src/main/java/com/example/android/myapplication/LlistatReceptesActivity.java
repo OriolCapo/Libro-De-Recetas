@@ -2,7 +2,9 @@ package com.example.android.myapplication;
 
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -10,9 +12,13 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.ListView;
+import android.widget.Toast;
 
 import com.example.android.myapplication.data.Recepta;
 import com.example.android.myapplication.data.ReceptesDAO;
@@ -26,6 +32,9 @@ public class LlistatReceptesActivity extends ActionBarActivity implements View.O
     private GridView gridview;
     private EditText ET_cercador;
     private boolean favourite;
+    private ListView slide_list_menu;
+    private DrawerLayout drawerLayout;
+    private Menu menu_;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +57,21 @@ public class LlistatReceptesActivity extends ActionBarActivity implements View.O
                 startActivity(i);
             }
         });
+
+        slide_list_menu = (ListView) findViewById(R.id.list_view34);
+        drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        final String[] opciones = { "Eliminar receptes", "Mostrar receptes preferides", "Cercar recepta per nom" };
+
+        slide_list_menu.setAdapter(new ArrayAdapter(this,
+                android.R.layout.simple_list_item_1, android.R.id.text1,
+                opciones));
+
+        slide_list_menu.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                drawerLayout.closeDrawers();
+            }
+        });
     }
 
     @Override
@@ -60,6 +84,7 @@ public class LlistatReceptesActivity extends ActionBarActivity implements View.O
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_llistat_receptes, menu);
+        menu_ = menu;
         return true;
     }
 
@@ -71,20 +96,7 @@ public class LlistatReceptesActivity extends ActionBarActivity implements View.O
         int id = item.getItemId();
 
         if (id == R.id.action_settings) {
-            //startActivity(new Intent(this,Lala.class));
-        }
-        else if (id == R.id.menu_item_favourite) {
-            if (!favourite) {
-                //imageAdapter = new GridViewAdapter(this, receptes);
-                item.setIcon(getResources().getDrawable(R.drawable.ic_star_white_18dp));
-                favourite = true;
-            }
-            else {
-                //imageAdapter = new GridViewAdapter(this, receptes);
-                item.setIcon(getResources().getDrawable(R.drawable.ic_star_border_white_18dp));
-                favourite = false;
-            }
-            gridview.setAdapter(imageAdapter);
+            startActivity(new Intent(this,Proves.class));
         }
 
         return super.onOptionsItemSelected(item);

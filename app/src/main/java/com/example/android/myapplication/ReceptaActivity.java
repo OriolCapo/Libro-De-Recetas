@@ -71,6 +71,15 @@ public class ReceptaActivity extends FragmentActivity {
         mViewPager = (ViewPager) findViewById(R.id.pager);
         mViewPager.setAdapter(mSectionsPagerAdapter);
         mViewPager.setCurrentItem(0);
+
+        imatge.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(ReceptaActivity.this, FotoGrossa.class);
+                intent.putExtra("nomRecepta", nomRecepta);
+                startActivity(intent);
+            }
+        });
     }
 
     @Override

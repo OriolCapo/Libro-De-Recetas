@@ -39,6 +39,8 @@
         </activity>
         <activity android:name=".Proves" >
         </activity>
+        <activity android:name=".FotoGrossa" >
+        </activity>
     </application>
 
 </manifest>

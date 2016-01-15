@@ -86,8 +86,9 @@ public class GridViewAdapter extends BaseAdapter{
     public View getView(int position, View convertView, ViewGroup parent) {
         Holder holder=new Holder();
         View rowView;
-
-        rowView = inflater.inflate(R.layout.receptes_grid_item, null);
+        ReceptesDAO rDAO = new ReceptesDAO(mContext);
+        if (rDAO.getIfFavourite(mThumbNoms[position])) { rowView = inflater.inflate(R.layout.receptes_grid_item_favourite, null); }
+        else { rowView = inflater.inflate(R.layout.receptes_grid_item, null); }
         holder.tv = (TextView)rowView.findViewById(R.id.textView_recepta);
         holder.img = (ImageView)rowView.findViewById(R.id.imageView_recepta);
         holder.tv.setText(Utils.llevaGuions(mThumbNoms[position]));
