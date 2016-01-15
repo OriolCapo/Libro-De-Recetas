@@ -57,22 +57,14 @@ public class ReceptaActivity extends FragmentActivity {
             }
         });
         Intent i = getIntent();
-        int position = i.getIntExtra("titol", -1);
-        if (position != -1) {
-            //GridViewAdapter adapter = new GridViewAdapter(this, receptes);
-            //nomRecepta = adapter.getThumbName(position);
-            //imatge.setImageBitmap(adapter.getThumbId(position));
-        }
-        else {
-            String nomR = i.getStringExtra("nomRecepta");
-            if (nomR != null) {
-                nomRecepta = nomR;
-                imatge.setImageBitmap(Fotos.loadImageFromStorage(this, nomR));
-            }
+        String nomR = i.getStringExtra("nomRecepta");
+        if (nomR != null) {
+            nomRecepta = nomR;
+            imatge.setImageBitmap(Fotos.loadImageFromStorage(this, nomR));
         }
         ReceptesDAO rDAO = new ReceptesDAO(this);
         if (rDAO.getIfFavourite(nomRecepta)) button_favourite.setImageResource(R.drawable.ic_star_white_18dp);
-        titol.setText(Utils.llevaGuions(nomRecepta));
+        titol.setText(nomRecepta);
         imatge.setScaleType(ImageView.ScaleType.CENTER_CROP);
         mSectionsPagerAdapter = new SectionsPagerAdapter(
                 getSupportFragmentManager());
@@ -91,6 +83,11 @@ public class ReceptaActivity extends FragmentActivity {
             startActivity(i);
             finish();
         }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
     }
 
     public class SectionsPagerAdapter extends FragmentPagerAdapter {
@@ -141,6 +138,7 @@ public class ReceptaActivity extends FragmentActivity {
             }
             return null;
         }
+
 
     }
 

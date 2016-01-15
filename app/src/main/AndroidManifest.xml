@@ -9,8 +9,8 @@
         android:theme="@style/AppTheme" >
         <activity
             android:name=".LlistatReceptesActivity"
-            android:windowSoftInputMode="stateHidden"
-            android:label="Les meves receptes" >
+            android:label="Les meves receptes"
+            android:windowSoftInputMode="stateHidden" >
         </activity>
         <activity android:name=".ReceptaActivity" >
         </activity>
@@ -35,7 +35,9 @@
         </activity>
         <activity
             android:name=".EditIngredientsSubstitutsActivity"
-            android:label="Edita Substituts">
+            android:label="Edita Substituts" >
+        </activity>
+        <activity android:name=".Proves" >
         </activity>
     </application>
 

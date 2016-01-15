@@ -8,6 +8,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -24,28 +26,26 @@ import java.util.ArrayList;
 /**
  * Created by Oriolcapo on 02/01/2016.
  */
-public class GridViewAdapter extends BaseAdapter {
+public class GridViewAdapter extends BaseAdapter{
 
-    private final ArrayList<Recepta> receptes;
+    private ArrayList<String> receptes;
     private Context mContext;
-    private static LayoutInflater inflater=null;
+    private LayoutInflater inflater=null;
 
     private Bitmap[] mThumbIds;
     private String[] mThumbNoms;
 
 
      private void omplmThumbIds() {
-        //else { list = dao.getReceptesPreferides(); }
         mThumbIds = new Bitmap[receptes.size()];
         mThumbNoms = new String[receptes.size()];
         for (int i=0; i<receptes.size(); i++) {
-            Recepta rec = receptes.get(i);
-            mThumbNoms[i] = rec.getNom();
-            mThumbIds[i] = Fotos.loadImageFromStorage(mContext, rec.getNom());
+            mThumbNoms[i] = receptes.get(i);
+            mThumbIds[i] = Fotos.loadImageFromStorage(mContext, receptes.get(i));
         }
     }
 
-    public GridViewAdapter(Context c, ArrayList<Recepta> receptes) {
+    public GridViewAdapter(Context c, ArrayList<String> receptes) {
         mContext = c;
         this.receptes = receptes;
         inflater = ( LayoutInflater )c.
@@ -84,7 +84,6 @@ public class GridViewAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        //ImageView a retornar
         Holder holder=new Holder();
         View rowView;
 

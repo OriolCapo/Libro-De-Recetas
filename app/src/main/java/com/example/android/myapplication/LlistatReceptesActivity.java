@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -36,13 +38,13 @@ public class LlistatReceptesActivity extends ActionBarActivity implements View.O
         Button_Afegir_Recepta.setOnClickListener(this);
 
         gridview = (GridView) findViewById(R.id.gridView);
-        ArrayList<Recepta> receptes = new ReceptesDAO(this).getAllReceptes();
+        ArrayList<String> receptes = new ReceptesDAO(this).getAllReceptesNames();
         imageAdapter = new GridViewAdapter(this, receptes);
         gridview.setAdapter(imageAdapter);
         gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
                 Intent i = new Intent(LlistatReceptesActivity.this, ReceptaActivity.class);
-                i.putExtra("titol", position);//Posición del elemento
+                i.putExtra("nomRecepta", imageAdapter.getThumbName(position));//Posición del elemento
                 startActivity(i);
             }
         });
@@ -69,7 +71,7 @@ public class LlistatReceptesActivity extends ActionBarActivity implements View.O
         int id = item.getItemId();
 
         if (id == R.id.action_settings) {
-            startActivity(new Intent(this,IngredientsSubstitutsActivity.class));
+            //startActivity(new Intent(this,Lala.class));
         }
         else if (id == R.id.menu_item_favourite) {
             if (!favourite) {
