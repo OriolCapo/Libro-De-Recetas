@@ -28,7 +28,7 @@
                 android:layout_height="50dp"
                 android:layout_margin="10dp"
                 android:id="@+id/imageButton"
-                android:src="@drawable/ic_mode_edit"
+                android:src="@drawable/ic_create_white_24dp"
                 android:background="@drawable/round_button_blue"
                 android:layout_alignBottom="@+id/imageView"
                 android:layout_alignParentEnd="true" />

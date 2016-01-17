@@ -34,7 +34,7 @@
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:text="New Button"
-            android:src="@drawable/ic_add"
+            android:src="@drawable/ic_add_white_24dp"
             android:background="@drawable/round_button_blue"
             android:id="@+id/Button_Afegir_Recepta"
             android:layout_marginRight="10dp"
@@ -50,7 +50,7 @@
         android:layout_height="match_parent"
         android:layout_gravity="start"
         android:cacheColorHint="@color/abc_primary_text_disable_only_material_dark"
-        android:background="@color/material_deep_teal_200"
+        android:background="#FFFFFF"
         android:choiceMode="singleChoice"
         android:divider="@color/primary_material_accent"
         android:dividerHeight="2dp" />

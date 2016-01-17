@@ -54,8 +54,7 @@ public class LlistatReceptesActivity extends ActionBarActivity implements View.O
 
         slide_list_menu = (ListView) findViewById(R.id.list_view34);
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-        final String[] opciones = { "Eliminar receptes", "Mostrar receptes preferides", "Cercar recepta per nom" };
-
+        final String[] opciones = { "Eliminar receptes", "Mostrar receptes preferides"};
         slide_list_menu.setAdapter(new ArrayAdapter(this,
                 android.R.layout.simple_list_item_1, android.R.id.text1,
                 opciones));
