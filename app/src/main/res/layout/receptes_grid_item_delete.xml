@@ -8,6 +8,7 @@
         android:layout_gravity="left"
         android:layout_width="182dp"
         android:layout_height="182dp"
+        android:background="@color/black_transparent"
         android:src="@drawable/ic_launcher"
         android:layout_alignParentTop="true"
         android:layout_alignParentStart="true" />
@@ -34,8 +35,9 @@
     <ImageButton
         android:layout_width="40dp"
         android:layout_height="40dp"
-        android:src="@drawable/delete_36"
-        android:background="@drawable/round_button_red"
+        android:id="@+id/button_delete_recepta"
+        android:src="@drawable/ic_clear_white_24dp"
+        android:background="#cc000e"
         android:layout_alignParentTop="true"
         android:layout_alignEnd="@+id/imageView_recepta" />
 

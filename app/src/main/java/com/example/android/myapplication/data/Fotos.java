@@ -50,4 +50,11 @@ public class Fotos {
         }
         return null;
     }
+
+    public static void eliminaFoto(String nomRecepta, Context context) {
+        ContextWrapper cw = new ContextWrapper(context);
+        String path = cw.getDir("Receptes", Context.MODE_PRIVATE).getAbsolutePath();
+        File f = new File(path, nomRecepta + ".jpg");
+        if (f.exists()) f.delete();
+    }
 }

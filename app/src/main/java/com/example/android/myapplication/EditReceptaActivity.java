@@ -285,10 +285,7 @@ public class EditReceptaActivity extends ActionBarActivity implements View.OnCli
                         rDAO.createRecepta(recepta.getNom(), recepta.getDescripcio(), recepta.getSuggeriments());
                     }
                     modificaIngredients(recepta.getNom());
-                    ContextWrapper cw = new ContextWrapper(getApplicationContext());
-                    String path = cw.getDir("Receptes", Context.MODE_PRIVATE).getAbsolutePath();
-                    File f = new File(path, recepta.getNom() + ".jpg");
-                    if (f.exists()) f.delete();
+                    Fotos.eliminaFoto(recepta.getNom(), getApplicationContext());
                     try {
                         Fotos.saveToInternalSorage(this, Foto, recepta.getNom());
                     } catch (IOException e) {

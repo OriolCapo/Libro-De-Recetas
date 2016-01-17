@@ -53,6 +53,9 @@ public class ReceptesDAO {
         String whereclause = DbHelper.ReceptaContracte.ReceptaEntry.COLUMN_NAME_RECEPTA_NAME + " = '" + name + "'";
         int quants = database.delete(DbHelper.ReceptaContracte.ReceptaEntry.TABLE_NAME, whereclause, null);
         close();
+        IngredientsReceptesDAO irDAO = new IngredientsReceptesDAO(context);
+        irDAO.deleteIngredientsOfRecepta(name);
+        Fotos.eliminaFoto(name, context);
         return quants;
     }
 

@@ -1,26 +1,21 @@
 package com.example.android.myapplication;
 
+import android.app.AlertDialog;
 import android.content.Context;
-import android.content.ContextWrapper;
+import android.content.DialogInterface;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.Filter;
-import android.widget.Filterable;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.android.myapplication.data.Fotos;
-import com.example.android.myapplication.data.Recepta;
 import com.example.android.myapplication.data.ReceptesDAO;
 import com.example.android.myapplication.data.Utils;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
 /**
@@ -29,27 +24,28 @@ import java.util.ArrayList;
 public class GridViewAdapter extends BaseAdapter{
 
     private ReceptesDAO rDAO;
-    private ArrayList<String> receptes;
     private Context mContext;
+    private boolean esborrar;
     private LayoutInflater inflater=null;
 
-    private Bitmap[] mThumbIds;
-    private String[] mThumbNoms;
+    private ArrayList<Bitmap> mThumbFotos;
+    private ArrayList<String> mThumbNoms;
 
 
      private void omplmThumbIds() {
-        mThumbIds = new Bitmap[receptes.size()];
-        mThumbNoms = new String[receptes.size()];
-        for (int i=0; i<receptes.size(); i++) {
-            mThumbNoms[i] = receptes.get(i);
-            mThumbIds[i] = Fotos.loadImageFromStorage(mContext, receptes.get(i));
+         mThumbFotos.clear();
+        for (int i=0; i<mThumbNoms.size(); i++) {
+            mThumbFotos.add(Fotos.loadImageFromStorage(mContext, mThumbNoms.get(i)));
         }
     }
 
     public GridViewAdapter(Context c) {
         mContext = c;
+        esborrar = false;
         rDAO = new ReceptesDAO(mContext);
-        this.receptes = rDAO.getAllReceptesNames();
+        mThumbNoms = rDAO.getAllReceptesNames();
+        mThumbFotos = new ArrayList<>();
+
         inflater = ( LayoutInflater )c.
                 getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         omplmThumbIds();
@@ -57,7 +53,7 @@ public class GridViewAdapter extends BaseAdapter{
 
     @Override
     public int getCount() {
-        return receptes.size();
+        return mThumbNoms.size();
     }
 
     @Override
@@ -70,12 +66,8 @@ public class GridViewAdapter extends BaseAdapter{
         return 0;
     }
 
-    public Bitmap getThumbId(int position){
-        return mThumbIds[position];
-    }
-
     public String getThumbName(int position){
-        return mThumbNoms[position];
+        return mThumbNoms.get(position);
     }
 
     public class Holder
@@ -85,25 +77,68 @@ public class GridViewAdapter extends BaseAdapter{
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, ViewGroup parent) {
         Holder holder=new Holder();
         View rowView;
-        if (rDAO.getIfFavourite(mThumbNoms[position])) { rowView = inflater.inflate(R.layout.receptes_grid_item_favourite, null); }
-        else { rowView = inflater.inflate(R.layout.receptes_grid_item, null); }
+        if (esborrar) {
+            rowView = inflater.inflate(R.layout.receptes_grid_item_delete, null);
+            ImageButton b = (ImageButton)rowView.findViewById(R.id.button_delete_recepta);
+            b.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    getDeleteDialog(position).show();
+                }
+            });
+        }
+        else {
+            if (rDAO.getIfFavourite(mThumbNoms.get(position))) {
+                rowView = inflater.inflate(R.layout.receptes_grid_item_favourite, null);
+            } else {
+                rowView = inflater.inflate(R.layout.receptes_grid_item, null);
+            }
+        }
         holder.tv = (TextView)rowView.findViewById(R.id.textView_recepta);
         holder.img = (ImageView)rowView.findViewById(R.id.imageView_recepta);
-        holder.tv.setText(Utils.llevaGuions(mThumbNoms[position]));
+        holder.tv.setText(Utils.llevaGuions(mThumbNoms.get(position)));
         holder.img.setScaleType(ImageView.ScaleType.CENTER_CROP);
-        holder.img.setImageBitmap(mThumbIds[position]);
+        holder.img.setImageBitmap(mThumbFotos.get(position));
         return rowView;
+    }
+
+    private AlertDialog getDeleteDialog(final int position) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+        builder.setTitle("Estas segur que vols eliminar la recepta?");
+        builder.setPositiveButton("Sí", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                rDAO.deleteReceptaByName(mThumbNoms.get(position));
+                mThumbNoms.remove(position);
+                mThumbFotos.remove(position);
+                refresh();
+            }
+        });
+        builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+
+            }
+        });
+        AlertDialog dialog = builder.create();
+        return dialog;
+    }
+
+    public void canviaAEsborrarFotos() {
+        if (esborrar) { esborrar = false; }
+        else { esborrar = true; }
+        refresh();
     }
 
     public void canviaSource(boolean b) {
         if (b) {
-            receptes = rDAO.getReceptesPreferidesNames();
+            mThumbNoms = rDAO.getReceptesPreferidesNames();
         }
         else {
-            receptes = rDAO.getAllReceptesNames();
+            mThumbNoms = rDAO.getAllReceptesNames();
         }
         refresh();
     }

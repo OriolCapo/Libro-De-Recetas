@@ -63,6 +63,9 @@ public class LlistatReceptesActivity extends ActionBarActivity implements View.O
         slide_list_menu.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                if (i == 0) {
+                    imageAdapter.canviaAEsborrarFotos();
+                }
                 if (i == 1) {
                     MenuItem item = menu.findItem(R.id.menu_item_favourites);
                     if (!favourite) {

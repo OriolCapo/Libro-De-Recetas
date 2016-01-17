@@ -4,6 +4,6 @@
     <color name="primary_material_accent">#2b3d95</color>
     <color name="accent_material_light">#4054b2</color>
     <color name="black_transparent">#90000000</color>
-    <color name="primary_material_red">#ff0000</color>
+    <color name="primary_material_red">#d90000</color>
     <color name="gray_light">#ededed</color>
 </resources>
