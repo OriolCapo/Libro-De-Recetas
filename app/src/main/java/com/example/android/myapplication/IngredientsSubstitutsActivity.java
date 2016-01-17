@@ -50,7 +50,6 @@ public class IngredientsSubstitutsActivity extends ActionBarActivity {
                 irDAO.updateIngredient(nomRecepta, nomIngredient, nomIngredientNou);
                 isDAO.updateIngredientReceptaPerIngredientSubstitut(nomRecepta, nomIngredient, nomIngredientNou);
                 Intent returnIntent = new Intent();
-                returnIntent.putExtra(PARAM_NOM_INGREDIENT_SUBS, nomIngredientNou);
                 setResult(Activity.RESULT_OK, returnIntent);
                 finish();
             }

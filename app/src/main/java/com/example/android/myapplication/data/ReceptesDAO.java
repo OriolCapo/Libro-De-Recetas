@@ -167,4 +167,19 @@ public class ReceptesDAO {
         close();
         return receptesPreferides;
     }
+
+    public ArrayList<String> getReceptesPreferidesNames() {
+        open();
+        ArrayList<String> receptesPreferides = new ArrayList<>();
+        String whereclause = DbHelper.ReceptaContracte.ReceptaEntry.COLUMN_NAME_FAVOURITE + " = 'si'";
+        Cursor cursor = database.query(DbHelper.ReceptaContracte.ReceptaEntry.TABLE_NAME, null, whereclause, null, null, null, null);
+        if (cursor.moveToFirst()) {
+            do {
+                Recepta recepta = cursorToRecepta(cursor);
+                receptesPreferides.add(recepta.getNom());
+            } while (cursor.moveToNext());
+        }
+        close();
+        return receptesPreferides;
+    }
 }

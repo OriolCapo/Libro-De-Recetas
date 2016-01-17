@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.example.android.myapplication.data.IngredientsReceptesDAO;
 import java.util.ArrayList;
@@ -57,10 +58,10 @@ public class ReceptaIngredientsFragment extends android.support.v4.app.Fragment 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == REQUEST_CODE_INGREDIENTS_SUBSTITUTS && resultCode == Activity.RESULT_OK) {
-            String ingredient = data.getStringExtra(IngredientsSubstitutsActivity.PARAM_NOM_INGREDIENT_SUBS);
-            adapter = new ArrayAdapter<String>(rootView.getContext(), android.R.layout.simple_list_item_1, ingredientsToShow);
+            ingredientsToShow.clear();
+            ArrayList<String> ingredientsAux = new IngredientsReceptesDAO(rootView.getContext()).getNomsIngredientsOfRecepta(nomRecepta);
+            for (int i=0; i<ingredientsAux.size(); i++) ingredientsToShow.add(ingredientsAux.get(i));
             adapter.notifyDataSetChanged();
-            listIngredients.setAdapter(adapter);
         }
     }
 }

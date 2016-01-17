@@ -4,9 +4,9 @@
     <item android:id="@+id/action_settings" android:title="@string/action_settings"
         android:orderInCategory="100" app:showAsAction="never" />
 
-    <item android:id="@+id/menu_item_delete"
+    <item android:id="@+id/menu_item_favourites"
         android:title=""
-        android:icon="@drawable/trash_24"
+        android:icon="@drawable/ic_star_border_white_18dp"
         android:orderInCategory="100" app:showAsAction="ifRoom" />
 
 </menu>

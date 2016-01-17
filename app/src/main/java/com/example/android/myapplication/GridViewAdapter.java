@@ -28,6 +28,7 @@ import java.util.ArrayList;
  */
 public class GridViewAdapter extends BaseAdapter{
 
+    private ReceptesDAO rDAO;
     private ArrayList<String> receptes;
     private Context mContext;
     private LayoutInflater inflater=null;
@@ -45,9 +46,10 @@ public class GridViewAdapter extends BaseAdapter{
         }
     }
 
-    public GridViewAdapter(Context c, ArrayList<String> receptes) {
+    public GridViewAdapter(Context c) {
         mContext = c;
-        this.receptes = receptes;
+        rDAO = new ReceptesDAO(mContext);
+        this.receptes = rDAO.getAllReceptesNames();
         inflater = ( LayoutInflater )c.
                 getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         omplmThumbIds();
@@ -55,7 +57,7 @@ public class GridViewAdapter extends BaseAdapter{
 
     @Override
     public int getCount() {
-        return mThumbIds.length;
+        return receptes.size();
     }
 
     @Override
@@ -86,7 +88,6 @@ public class GridViewAdapter extends BaseAdapter{
     public View getView(int position, View convertView, ViewGroup parent) {
         Holder holder=new Holder();
         View rowView;
-        ReceptesDAO rDAO = new ReceptesDAO(mContext);
         if (rDAO.getIfFavourite(mThumbNoms[position])) { rowView = inflater.inflate(R.layout.receptes_grid_item_favourite, null); }
         else { rowView = inflater.inflate(R.layout.receptes_grid_item, null); }
         holder.tv = (TextView)rowView.findViewById(R.id.textView_recepta);
@@ -95,6 +96,16 @@ public class GridViewAdapter extends BaseAdapter{
         holder.img.setScaleType(ImageView.ScaleType.CENTER_CROP);
         holder.img.setImageBitmap(mThumbIds[position]);
         return rowView;
+    }
+
+    public void canviaSource(boolean b) {
+        if (b) {
+            receptes = rDAO.getReceptesPreferidesNames();
+        }
+        else {
+            receptes = rDAO.getAllReceptesNames();
+        }
+        refresh();
     }
 
     public void refresh() {
