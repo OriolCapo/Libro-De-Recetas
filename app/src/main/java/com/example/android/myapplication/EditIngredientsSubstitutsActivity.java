@@ -31,7 +31,7 @@ public class EditIngredientsSubstitutsActivity extends ActionBarActivity impleme
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_ingredients_substituts);
-        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        //setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         ingrOnLayout = new ArrayList<>();
         ll = (LinearLayout) findViewById(R.id.LLingr2);

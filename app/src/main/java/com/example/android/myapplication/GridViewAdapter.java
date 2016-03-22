@@ -4,6 +4,8 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Bitmap;
+import android.graphics.Point;
+import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -99,7 +101,21 @@ public class GridViewAdapter extends BaseAdapter{
         }
         holder.tv = (TextView)rowView.findViewById(R.id.textView_recepta);
         holder.img = (ImageView)rowView.findViewById(R.id.imageView_recepta);
+        if (LlistatReceptesActivity.width < 700 && LlistatReceptesActivity.height < 700) {
+            holder.tv.setTextSize(holder.tv.getTextSize()/2);
+        }
         holder.tv.setText(Utils.llevaGuions(mThumbNoms.get(position)));
+        //--------
+        if (mContext.getResources().getConfiguration().orientation == 1) { //vertical
+            holder.img.getLayoutParams().width = (LlistatReceptesActivity.height/3) - 25;
+            holder.img.getLayoutParams().height = (LlistatReceptesActivity.height/3) - 25;
+        }
+        else {
+            holder.img.getLayoutParams().width = LlistatReceptesActivity.width/4;
+            holder.img.getLayoutParams().height = LlistatReceptesActivity.width/4;
+        }
+        holder.img.requestLayout();
+        //--------
         holder.img.setScaleType(ImageView.ScaleType.CENTER_CROP);
         holder.img.setImageBitmap(mThumbFotos.get(position));
         return rowView;

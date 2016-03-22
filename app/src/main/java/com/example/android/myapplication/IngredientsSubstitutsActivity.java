@@ -33,7 +33,7 @@ public class IngredientsSubstitutsActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ingredients_substituts);
-        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        //setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         listView = (ListView) findViewById(R.id.list_view);
         Intent intent = getIntent();
         nomRecepta = intent.getStringExtra(ReceptaIngredientsFragment.PARAM_NOM_RECEPTA);

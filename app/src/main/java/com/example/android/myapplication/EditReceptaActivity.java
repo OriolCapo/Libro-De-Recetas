@@ -8,12 +8,14 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.graphics.Bitmap;
+import android.graphics.Point;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.provider.MediaStore;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -66,7 +68,7 @@ public class EditReceptaActivity extends ActionBarActivity implements View.OnCli
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_recepta);
-        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        //setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         photoUtils = new PhotoUtils(this);
         addIngr = (Button) findViewById(R.id.addIngr);
@@ -87,6 +89,20 @@ public class EditReceptaActivity extends ActionBarActivity implements View.OnCli
 
         Intent intent = getIntent();
         String nomR = intent.getStringExtra("nomRecepta");
+        Display display = getWindowManager().getDefaultDisplay();
+        Point size = new Point();
+        display.getSize(size);
+        int width = size.x;
+        int height = size.y;
+        if (getResources().getConfiguration().orientation == 1) {       //vertical
+            photoViewer.getLayoutParams().width = width;
+            photoViewer.getLayoutParams().height = height/2;
+        }
+        else {                                                          //horitzontal
+            photoViewer.getLayoutParams().width = LlistatReceptesActivity.height/2;
+            photoViewer.getLayoutParams().height = LlistatReceptesActivity.height/3;
+        }
+        photoViewer.requestLayout();
         if (nomR != null) {
             modificar = true;
             oldName = nomR;

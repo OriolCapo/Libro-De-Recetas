@@ -1,13 +1,14 @@
 package com.example.android.myapplication;
 
 import android.content.Intent;
-import android.content.pm.ActivityInfo;
+import android.graphics.Point;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
+import android.view.Display;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -15,7 +16,6 @@ import android.widget.TextView;
 
 import com.example.android.myapplication.data.Fotos;
 import com.example.android.myapplication.data.ReceptesDAO;
-import com.example.android.myapplication.data.Utils;
 
 public class ReceptaActivity extends FragmentActivity {
 
@@ -26,13 +26,12 @@ public class ReceptaActivity extends FragmentActivity {
     private ViewPager mViewPager;
     private String nomRecepta;
     private ImageButton button_favourite;
-    private boolean b = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recepta);
-        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        //setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         findViewById(R.id.imageButton_edit).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -80,6 +79,21 @@ public class ReceptaActivity extends FragmentActivity {
                 startActivity(intent);
             }
         });
+
+        Display display = getWindowManager().getDefaultDisplay();
+        Point size = new Point();
+        display.getSize(size);
+        int width = size.x;
+        int height = size.y;
+        if (getResources().getConfiguration().orientation == 1) {       //vertical
+            imatge.getLayoutParams().width = width;
+            imatge.getLayoutParams().height = height/2;
+        }
+        else {                                                          //horitzontal
+            imatge.getLayoutParams().width = LlistatReceptesActivity.height/2;
+            imatge.getLayoutParams().height = LlistatReceptesActivity.height/3;
+        }
+        imatge.requestLayout();
     }
 
     @Override
@@ -118,7 +132,10 @@ public class ReceptaActivity extends FragmentActivity {
                     fragment = new ReceptaDescripcioFragment(); // Fragment 2
                     break;
                 case 2:
-                    fragment = new ReceptaSuggerimentsFragment(); // Fragment 3
+                    fragment = new ReceptaFotosFragment(); // Fragment 3
+                    break;
+                case 3:
+                    fragment = new ReceptaSuggerimentsFragment();
                     break;
                 default:
                     break;
@@ -131,7 +148,7 @@ public class ReceptaActivity extends FragmentActivity {
         @Override
         public int getCount() {
             // Total de páginas
-            return 3;
+            return 4;
         }
 
         @Override
@@ -143,6 +160,8 @@ public class ReceptaActivity extends FragmentActivity {
                 case 1:
                     return "Descripció";
                 case 2:
+                    return "Passos/Fotos";
+                case 3:
                     return "Suggeriments";
             }
             return null;

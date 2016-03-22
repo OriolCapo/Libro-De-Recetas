@@ -2,9 +2,12 @@ package com.example.android.myapplication;
 
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.graphics.Point;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
+import android.view.Display;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -25,19 +28,20 @@ public class LlistatReceptesActivity extends ActionBarActivity implements View.O
     private GridViewAdapter imageAdapter;
     private ImageButton Button_Afegir_Recepta;
     private GridView gridview;
-    private EditText ET_cercador;
+
     private boolean favourite;
     private ListView slide_list_menu;
     private DrawerLayout drawerLayout;
     private Menu menu;
+    public static int width;
+    public static int height;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_llistat_receptes);
-        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        //setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         favourite = false;
-        ET_cercador = (EditText) findViewById(R.id.editText3);
         Button_Afegir_Recepta = (ImageButton) findViewById(R.id.Button_Afegir_Recepta);
         Button_Afegir_Recepta.setOnClickListener(this);
         gridview = (GridView) findViewById(R.id.gridView);
@@ -81,6 +85,18 @@ public class LlistatReceptesActivity extends ActionBarActivity implements View.O
                 drawerLayout.closeDrawers();
             }
         });
+
+        //_______________________
+        Display display = getWindowManager().getDefaultDisplay();
+        Point size = new Point();
+        display.getSize(size);
+        width = size.x;
+        height = size.y;
+        Log.d("width", Integer.toString(width));
+        Log.d("height", Integer.toString(height));
+        if (getResources().getConfiguration().orientation != 1) {
+            gridview.setNumColumns(4);
+        }
     }
 
     @Override
