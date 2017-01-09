@@ -118,11 +118,10 @@ public class MenuDAO {
     public boolean existReceptaMenu(String nomMenu, String nomRecepta) {
         open();
         boolean ret;
-        //String where = DbHelper.ReceptaMenuContracte.ReceptaMenuEntry.COLUMN_NAME_MENU_NAME + " = '" + nomMenu + "'";
         String where = DbHelper.ReceptaMenuContracte.ReceptaMenuEntry.COLUMN_NAME_MENU_NAME + " = '" + nomMenu +
                 "' AND " + DbHelper.ReceptaMenuContracte.ReceptaMenuEntry.COLUMN_NAME_RECEPTA_NAME + " = '" + nomRecepta + "'";
         System.out.println("ANTES DE LA QUERY");
-        Cursor cursor = database.query(DbHelper.MenuContracte.MenuEntry.TABLE_NAME, null, where, null, null, null, null);
+        Cursor cursor = database.query(DbHelper.ReceptaMenuContracte.ReceptaMenuEntry.TABLE_NAME, null, where, null, null, null, null);
         System.out.println("DESPUES DE LA QUERY");
         if (cursor.moveToFirst()) ret = true;
         else ret = false;

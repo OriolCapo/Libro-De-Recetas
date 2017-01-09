@@ -29,7 +29,7 @@ tools:context="com.example.android.myapplication.CreaMenuActivity">
         android:textSize="17dp"
         android:imeOptions="actionNext"
         android:maxLines="1"
-        android:inputType="text"/>
+        android:inputType="textCapSentences|text"/>
 
     <TextView
         android:layout_width="match_parent"
@@ -49,6 +49,8 @@ tools:context="com.example.android.myapplication.CreaMenuActivity">
         android:ems="10"
         android:layout_marginTop="10dp"
         android:id="@+id/editText_menu_info"
+        android:inputType="textCapSentences|textMultiLine"
+        android:imeOptions="normal"
         android:textSize="17dp" />
 
     <TextView

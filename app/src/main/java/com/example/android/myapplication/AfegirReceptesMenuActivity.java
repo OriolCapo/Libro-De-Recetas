@@ -35,7 +35,6 @@ public class AfegirReceptesMenuActivity extends ActionBarActivity {
         Intent intent = getIntent();
         nomMenu = intent.getStringExtra("nomMenu");
         ArrayList<String> receptesMenu = menuDAO.getNomsReceptesOfMenu(nomMenu);
-        System.out.println("AAAAA\n"+receptesMenu);
         for (int i=0; i<nomsReceptes.size(); ++i) {
             String nomR = nomsReceptes.get(i);
             String nomR2 = nomR.replace(" ","_");

@@ -3,6 +3,7 @@ package com.example.android.myapplication;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Point;
 import android.view.Display;
@@ -13,6 +14,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.android.myapplication.data.Fotos;
 import com.example.android.myapplication.data.ReceptesDAO;
@@ -36,7 +38,7 @@ public class GridViewAdapter extends BaseAdapter{
 
      private void omplmThumbIds() {
          mThumbFotos.clear();
-        for (int i=0; i<mThumbNoms.size(); i++) {
+         for (int i=0; i<mThumbNoms.size(); i++) {
             mThumbFotos.add(Fotos.loadImageFromStorage(mContext, mThumbNoms.get(i)));
         }
     }
@@ -97,6 +99,21 @@ public class GridViewAdapter extends BaseAdapter{
                 rowView = inflater.inflate(R.layout.receptes_grid_item_favourite, null);
             } else {
                 rowView = inflater.inflate(R.layout.receptes_grid_item, null);
+                rowView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent i = new Intent(mContext, ReceptaActivity.class);
+                        i.putExtra("nomRecepta", mThumbNoms.get(position));//Posición del elemento
+                        mContext.startActivity(i);
+                    }
+                });
+                rowView.setOnLongClickListener(new View.OnLongClickListener() {
+                    @Override
+                    public boolean onLongClick(View view) {
+                        getDeleteDialog(position).show();
+                        return false;
+                    }
+                });
             }
         }
         holder.tv = (TextView)rowView.findViewById(R.id.textView_recepta);
@@ -130,7 +147,7 @@ public class GridViewAdapter extends BaseAdapter{
                 rDAO.deleteReceptaByName(mThumbNoms.get(position));
                 mThumbNoms.remove(position);
                 mThumbFotos.remove(position);
-                refresh();
+                canviaAEsborrarFotos();
             }
         });
         builder.setNegativeButton("No", new DialogInterface.OnClickListener() {

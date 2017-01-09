@@ -1,5 +1,7 @@
 package com.example.android.myapplication;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -40,11 +42,30 @@ public class LlistatMenusActivity extends ActionBarActivity {
             @Override
             public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
                 String nomMenu = (String) lv_nomsMenus.getItemAtPosition(i);
-                menuDAO.deleteMenu(nomMenu);
-                actualitza_listView();
+                getDeleteDialog(nomMenu).show();
                 return false;
             }
         });
+    }
+
+    private AlertDialog getDeleteDialog(final String nomMenu) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(LlistatMenusActivity.this);
+        builder.setTitle("Estas segur que vols eliminar aquest menú?");
+        builder.setPositiveButton("Sí", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                menuDAO.deleteMenu(nomMenu);
+                actualitza_listView();
+            }
+        });
+        builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+
+            }
+        });
+        AlertDialog dialog = builder.create();
+        return dialog;
     }
 
     private void actualitza_listView() {

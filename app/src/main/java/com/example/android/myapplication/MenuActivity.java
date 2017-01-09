@@ -17,6 +17,7 @@ import android.widget.Toast;
 
 import com.example.android.myapplication.data.MenuDAO;
 import com.example.android.myapplication.data.Recepta;
+import com.example.android.myapplication.data.ReceptesDAO;
 
 import java.util.ArrayList;
 
@@ -39,19 +40,17 @@ public class MenuActivity extends ActionBarActivity implements View.OnClickListe
         Intent intent = getIntent();
         nomMenu = intent.getStringExtra("nomMenu");
         if (nomMenu != null) {
-            SpannableString content = new SpannableString(nomMenu);
+            final SpannableString content = new SpannableString(nomMenu);
             content.setSpan(new UnderlineSpan(), 0, content.length(), 0);
             tvNomMenu.setText(content);
             actualitza_listView();
             String info = menuDAO.getInfo(nomMenu);
-            info = info.substring(0,1).toUpperCase() + info.substring(1);
             tv_infoMenu.setText(info);
 
             lvnomsReceptes.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
                 @Override
                 public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
                     String nomR = (String) lvnomsReceptes.getItemAtPosition(i);
-                    nomR = nomR.substring(0,1).toLowerCase() + nomR.substring(1);
                     menuDAO.deleteReceptaMenu(nomMenu,nomR.replace(" ","_"));
                     actualitza_listView();
                     return false;
@@ -62,7 +61,9 @@ public class MenuActivity extends ActionBarActivity implements View.OnClickListe
                 @Override
                 public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                     String nomR = ((String) lvnomsReceptes.getItemAtPosition(i));
-                    nomR = nomR.substring(0,1).toLowerCase() + nomR.substring(1);
+                    ReceptesDAO receptesDAO = new ReceptesDAO(MenuActivity.this);
+                    Recepta recepta = receptesDAO.getReceptaByNom(nomR);
+                    if (recepta == null) nomR = nomR.replace(" ","_");
                     Intent intent = new Intent(MenuActivity.this,ReceptaActivity.class);
                     intent.putExtra("nomRecepta",nomR);
                     startActivity(intent);
@@ -76,7 +77,6 @@ public class MenuActivity extends ActionBarActivity implements View.OnClickListe
         ArrayList<String> nomReceptes = menuDAO.getNomsReceptesOfMenu(nomMenu);
         for (int i=0;i<nomReceptes.size();++i) {
             String nomR = nomReceptes.get(i).replace("_"," ");
-            nomR = nomR.substring(0,1).toUpperCase() + nomR.substring(1);
             nomReceptes.set(i,nomR);
         }
         ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, nomReceptes);

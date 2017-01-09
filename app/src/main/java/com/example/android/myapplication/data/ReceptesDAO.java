@@ -56,6 +56,13 @@ public class ReceptesDAO {
         IngredientsReceptesDAO irDAO = new IngredientsReceptesDAO(context);
         irDAO.deleteIngredientsOfRecepta(name);
         Fotos.eliminaFoto(name, context);
+
+        MenuDAO menuDAO = new MenuDAO(context);
+        ArrayList<String> menus = menuDAO.getAllMenusNames();
+        for (int i=0; i<menus.size(); ++i){
+            if (menuDAO.existReceptaMenu(menus.get(i),name)) menuDAO.deleteReceptaMenu(menus.get(i),name);
+        }
+
         return quants;
     }
 
@@ -112,7 +119,7 @@ public class ReceptesDAO {
         open();
         Cursor cursor = database.query(DbHelper.ReceptaContracte.ReceptaEntry.TABLE_NAME, null,
                 DbHelper.ReceptaContracte.ReceptaEntry.COLUMN_NAME_RECEPTA_NAME + " = '" + nomRecepta + "'", null, null, null, null);
-        Recepta recepta = new Recepta();
+        Recepta recepta = null;
         if (cursor.moveToFirst()) recepta = cursorToRecepta(cursor);
         cursor.close();
         close();

@@ -1,5 +1,7 @@
 package com.example.android.myapplication;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.graphics.Point;
@@ -48,13 +50,6 @@ public class LlistatReceptesActivity extends ActionBarActivity implements View.O
 
         imageAdapter = new GridViewAdapter(this);
         gridview.setAdapter(imageAdapter);
-        gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
-                Intent i = new Intent(LlistatReceptesActivity.this, ReceptaActivity.class);
-                i.putExtra("nomRecepta", imageAdapter.getThumbName(position));//Posición del elemento
-                startActivity(i);
-            }
-        });
 
         slide_list_menu = (ListView) findViewById(R.id.list_view34);
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
