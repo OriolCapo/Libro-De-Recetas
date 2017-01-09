@@ -1,12 +1,10 @@
-package com.example.android.myapplication;
+package com.example.android.myapplication.Receptes;
 
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.Point;
-import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,11 +12,11 @@ import android.widget.BaseAdapter;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.example.android.myapplication.data.Fotos;
-import com.example.android.myapplication.data.ReceptesDAO;
-import com.example.android.myapplication.data.Utils;
+import com.example.android.myapplication.Data.Fotos;
+import com.example.android.myapplication.Data.ReceptesDAO;
+import com.example.android.myapplication.Data.Utils;
+import com.example.android.myapplication.R;
 
 import java.util.ArrayList;
 
@@ -99,22 +97,22 @@ public class GridViewAdapter extends BaseAdapter{
                 rowView = inflater.inflate(R.layout.receptes_grid_item_favourite, null);
             } else {
                 rowView = inflater.inflate(R.layout.receptes_grid_item, null);
-                rowView.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        Intent i = new Intent(mContext, ReceptaActivity.class);
-                        i.putExtra("nomRecepta", mThumbNoms.get(position));//Posición del elemento
-                        mContext.startActivity(i);
-                    }
-                });
-                rowView.setOnLongClickListener(new View.OnLongClickListener() {
-                    @Override
-                    public boolean onLongClick(View view) {
-                        getDeleteDialog(position).show();
-                        return false;
-                    }
-                });
             }
+            rowView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent i = new Intent(mContext, ReceptaActivity.class);
+                    i.putExtra("nomRecepta", mThumbNoms.get(position));//Posición del elemento
+                    mContext.startActivity(i);
+                }
+            });
+            rowView.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View view) {
+                    getDeleteDialog(position).show();
+                    return false;
+                }
+            });
         }
         holder.tv = (TextView)rowView.findViewById(R.id.textView_recepta);
         holder.img = (ImageView)rowView.findViewById(R.id.imageView_recepta);

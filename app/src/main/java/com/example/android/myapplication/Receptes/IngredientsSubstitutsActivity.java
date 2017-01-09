@@ -1,26 +1,23 @@
-package com.example.android.myapplication;
+package com.example.android.myapplication.Receptes;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.content.pm.ActivityInfo;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.Toast;
 
-import com.example.android.myapplication.data.IngredientsReceptesDAO;
-import com.example.android.myapplication.data.IngredientsSubstitutsDAO;
+import com.example.android.myapplication.Receptes.FragmentsRecepta.ReceptaIngredientsFragment;
+import com.example.android.myapplication.Data.IngredientsReceptesDAO;
+import com.example.android.myapplication.Data.IngredientsSubstitutsDAO;
+import com.example.android.myapplication.R;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
-public class IngredientsSubstitutsActivity extends ActionBarActivity {
+public class IngredientsSubstitutsActivity extends AppCompatActivity {
 
     public static final String PARAM_NOM_INGREDIENT_SUBS = "nomIngredient";
     private ListView listView;

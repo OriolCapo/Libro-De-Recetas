@@ -1,36 +1,82 @@
-package com.example.android.myapplication;
+package com.example.android.myapplication.Menus;
 
 import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Spinner;
 import android.widget.Toast;
 
-import com.example.android.myapplication.data.MenuDAO;
+import com.example.android.myapplication.Data.MenuDAO;
+import com.example.android.myapplication.R;
 
 import java.util.ArrayList;
 
-public class CreaMenuActivity extends ActionBarActivity implements View.OnClickListener{
+public class ModificaMenuActivity extends AppCompatActivity implements View.OnClickListener{
 
     private EditText et_nomMenu;
     private EditText et_info;
+    private String nomMenu;
     private MenuDAO menuDAO;
     private boolean mon,tue,wed,thu,fri,sat,sun;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_crea_menu);
+        setContentView(R.layout.activity_modifica_menu);
         mon=tue=wed=thu=fri=sat=sun=false;
         menuDAO = new MenuDAO(this);
-        et_nomMenu = (EditText) findViewById(R.id.editText_nomMenu);
-        et_info = (EditText) findViewById(R.id.editText_menu_info);
+        Intent intent = getIntent();
+        nomMenu = intent.getStringExtra("nomMenu").toString();
+        if (nomMenu!=null){
+            et_nomMenu = (EditText) findViewById(R.id.editText_nomMenu);
+            et_nomMenu.setText(nomMenu);
+            et_info = (EditText) findViewById(R.id.editText_menu_info);
+            et_info.setText(menuDAO.getInfo(nomMenu));
+            ArrayList<String> diesMenu = menuDAO.getDiesOfMenu(nomMenu);
+
+            Button b_mon = (Button) findViewById(R.id.button_mon);
+            Button b_tue = (Button) findViewById(R.id.button_tue);
+            Button b_wed = (Button) findViewById(R.id.button_wed);
+            Button b_thu = (Button) findViewById(R.id.button_thu);
+            Button b_fri = (Button) findViewById(R.id.button_fri);
+            Button b_sat = (Button) findViewById(R.id.button_sat);
+            Button b_sun = (Button) findViewById(R.id.button_sun);
+
+            if(diesMenu.contains("monday")) {
+                mon=true;
+                b_mon.setBackground(getResources().getDrawable(R.drawable.round_button_darkgrey));
+            }
+            if(diesMenu.contains("tuesday")) {
+                tue=true;
+                b_tue.setBackground(getResources().getDrawable(R.drawable.round_button_darkgrey));
+            }
+            if(diesMenu.contains("wednesday")) {
+                wed=true;
+                b_wed.setBackground(getResources().getDrawable(R.drawable.round_button_darkgrey));
+            }
+            if(diesMenu.contains("thursday")) {
+                thu=true;
+                b_thu.setBackground(getResources().getDrawable(R.drawable.round_button_darkgrey));
+            }
+            if(diesMenu.contains("friday")) {
+                fri=true;
+                b_fri.setBackground(getResources().getDrawable(R.drawable.round_button_darkgrey));
+            }
+            if(diesMenu.contains("saturday")) {
+                sat=true;
+                b_sat.setBackground(getResources().getDrawable(R.drawable.round_button_darkgrey));
+            }
+            if(diesMenu.contains("sunday")) {
+                sun=true;
+                b_sun.setBackground(getResources().getDrawable(R.drawable.round_button_darkgrey));
+            }
+        }
+
     }
 
     @Override
@@ -113,28 +159,39 @@ public class CreaMenuActivity extends ActionBarActivity implements View.OnClickL
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_create_menu,menu);
+        getMenuInflater().inflate(R.menu.menu_modifica_menu,menu);
         return super.onCreateOptionsMenu(menu);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int idItem = item.getItemId();
-        if (idItem == R.id.menu_item_afegirMenu_done) {
-            String nomMenu = et_nomMenu.getText().toString();
-            ArrayList<String> nomsMenus = menuDAO.getAllMenusNames();
-            if (nomsMenus.contains(nomMenu)){
-                Toast.makeText(this,"Ja existeix un menu amb aquest nom",Toast.LENGTH_LONG).show();
-            } else if (nomMenu.equals("")) {
+        if (idItem == R.id.menu_item_modificaMenu_done) {
+            String newNom = et_nomMenu.getText().toString();
+            if (newNom.equals("")) {
                 Toast.makeText(this,"Introdueix el nom del menú",Toast.LENGTH_LONG).show();
             } else {
                 String info = et_info.getText().toString();
-                long id = menuDAO.createMenu(nomMenu,info);
-                if (id != -1) {
-                    Toast.makeText(this,"Menu creat correctament",Toast.LENGTH_LONG).show();
-                    finish();
+                int quants = menuDAO.updateMenu(nomMenu,newNom,info);
+                if (quants > 0) {
+                    Toast.makeText(this,"Menu modificat correctament",Toast.LENGTH_LONG).show();
+                    if(mon) menuDAO.createDiaMenu(nomMenu,"monday");
+                    else menuDAO.deleteDiaMenu(nomMenu,"monday");
+                    if(tue) menuDAO.createDiaMenu(nomMenu,"tuesday");
+                    else menuDAO.deleteDiaMenu(nomMenu,"tuesday");
+                    if(wed) menuDAO.createDiaMenu(nomMenu,"wednesday");
+                    else menuDAO.deleteDiaMenu(nomMenu,"wednesday");
+                    if(thu) menuDAO.createDiaMenu(nomMenu,"thursday");
+                    else menuDAO.deleteDiaMenu(nomMenu,"thursday");
+                    if(fri) menuDAO.createDiaMenu(nomMenu,"friday");
+                    else menuDAO.deleteDiaMenu(nomMenu,"friday");
+                    if(sat) menuDAO.createDiaMenu(nomMenu,"saturday");
+                    else menuDAO.deleteDiaMenu(nomMenu,"saturday");
+                    if(sun) menuDAO.createDiaMenu(nomMenu,"sunday");
+                    else menuDAO.deleteDiaMenu(nomMenu,"sunday");
                 }
-                else Toast.makeText(this,"Alguna cosa ha anat malament",Toast.LENGTH_LONG).show();
+                else Toast.makeText(this,"Alguna cosa ha sortit malament",Toast.LENGTH_LONG).show();
+                finish();
             }
         }
         return super.onOptionsItemSelected(item);

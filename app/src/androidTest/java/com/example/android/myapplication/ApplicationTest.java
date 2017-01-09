@@ -2,14 +2,6 @@ package com.example.android.myapplication;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;
-import android.util.Log;
-
-import com.example.android.myapplication.data.IngredientRecepta;
-import com.example.android.myapplication.data.IngredientsReceptesDAO;
-import com.example.android.myapplication.data.Recepta;
-import com.example.android.myapplication.data.ReceptesDAO;
-
-import java.util.ArrayList;
 
 /**
  * <a href="http://d.android.com/tools/testing/testing_android.html">Testing Fundamentals</a>

@@ -1,12 +1,10 @@
-package com.example.android.myapplication;
+package com.example.android.myapplication.Receptes;
 
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
-import android.content.ContextWrapper;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.pm.ActivityInfo;
 import android.graphics.Bitmap;
 import android.graphics.Point;
 import android.graphics.drawable.BitmapDrawable;
@@ -14,6 +12,7 @@ import android.net.Uri;
 import android.provider.MediaStore;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Display;
 import android.view.LayoutInflater;
@@ -28,20 +27,21 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.android.myapplication.R;
 import com.example.android.myapplication.Widget.Widget;
-import com.example.android.myapplication.data.Fotos;
-import com.example.android.myapplication.data.IngredientsReceptesDAO;
-import com.example.android.myapplication.data.IngredientsSubstitutsDAO;
-import com.example.android.myapplication.data.PhotoUtils;
-import com.example.android.myapplication.data.Recepta;
-import com.example.android.myapplication.data.ReceptesDAO;
+import com.example.android.myapplication.Data.Fotos;
+import com.example.android.myapplication.Data.IngredientsReceptesDAO;
+import com.example.android.myapplication.Data.IngredientsSubstitutsDAO;
+import com.example.android.myapplication.Data.PhotoUtils;
+import com.example.android.myapplication.Data.Recepta;
+import com.example.android.myapplication.Data.ReceptesDAO;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class EditReceptaActivity extends ActionBarActivity implements View.OnClickListener {
+public class EditReceptaActivity extends AppCompatActivity implements View.OnClickListener {
 
     public static final String PARAM_INGREDIENT_RECEPTA = "nomIngredient";
     public static final int REQUEST_CODE_EDIT_SUBSTITUTS = 1111;

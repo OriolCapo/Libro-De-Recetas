@@ -1,29 +1,31 @@
-package com.example.android.myapplication;
+package com.example.android.myapplication.Menus;
 
 import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.text.SpannableString;
 import android.text.style.UnderlineSpan;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.example.android.myapplication.data.MenuDAO;
-import com.example.android.myapplication.data.Recepta;
-import com.example.android.myapplication.data.ReceptesDAO;
+import com.example.android.myapplication.Data.MenuDAO;
+import com.example.android.myapplication.Data.Recepta;
+import com.example.android.myapplication.Data.ReceptesDAO;
+import com.example.android.myapplication.R;
+import com.example.android.myapplication.Receptes.ReceptaActivity;
 
 import java.util.ArrayList;
 
-public class MenuActivity extends ActionBarActivity implements View.OnClickListener {
+public class MenuActivity extends AppCompatActivity implements View.OnClickListener {
 
     private ListView lvnomsReceptes;
+    private ListView lvdiesMenus;
     private TextView tvNomMenu;
     private String nomMenu;
     private MenuDAO menuDAO;
@@ -35,6 +37,7 @@ public class MenuActivity extends ActionBarActivity implements View.OnClickListe
         setContentView(R.layout.activity_menus);
         menuDAO = new MenuDAO(this);
         lvnomsReceptes = (ListView) findViewById(R.id.listViewNomsMenus);
+        lvdiesMenus = (ListView) findViewById(R.id.listViewDiesMenu);
         tvNomMenu = (TextView) findViewById(R.id.textViewTitolMenu);
         tv_infoMenu = (TextView) findViewById(R.id.tv_Info);
         Intent intent = getIntent();
@@ -69,6 +72,10 @@ public class MenuActivity extends ActionBarActivity implements View.OnClickListe
                     startActivity(intent);
                 }
             });
+
+            ArrayList<String> diesMenu = menuDAO.getDiesOfMenu(nomMenu);
+            ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1, diesMenu);
+            lvdiesMenus.setAdapter(adapter);
         }
 
     }
@@ -81,6 +88,26 @@ public class MenuActivity extends ActionBarActivity implements View.OnClickListe
         }
         ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, nomReceptes);
         lvnomsReceptes.setAdapter(adapter);
+
+        adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, menuDAO.getDiesOfMenu(nomMenu));
+        lvdiesMenus.setAdapter(adapter);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_menu_activity,menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int idItem = item.getItemId();
+        if (idItem == R.id.menu_item_modify_menu) {
+            Intent intent = new Intent(MenuActivity.this,ModificaMenuActivity.class);
+            intent.putExtra("nomMenu",nomMenu);
+            startActivity(intent);
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override

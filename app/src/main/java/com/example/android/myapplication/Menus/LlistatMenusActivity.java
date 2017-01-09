@@ -1,4 +1,4 @@
-package com.example.android.myapplication;
+package com.example.android.myapplication.Menus;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -12,7 +12,8 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-import com.example.android.myapplication.data.MenuDAO;
+import com.example.android.myapplication.Data.MenuDAO;
+import com.example.android.myapplication.R;
 
 import java.util.ArrayList;
 

@@ -2,12 +2,10 @@ package com.example.android.myapplication;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.content.pm.ActivityInfo;
 import android.os.Handler;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 
-import com.example.android.myapplication.data.IngredientsSubstitutsDAO;
+import com.example.android.myapplication.Receptes.LlistatReceptesActivity;
 
 public class SplashActivity extends Activity {
 

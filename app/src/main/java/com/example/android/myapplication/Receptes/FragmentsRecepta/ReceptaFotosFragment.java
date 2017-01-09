@@ -1,13 +1,11 @@
-package com.example.android.myapplication;
+package com.example.android.myapplication.Receptes.FragmentsRecepta;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
-import com.example.android.myapplication.data.Recepta;
-import com.example.android.myapplication.data.ReceptesDAO;
+import com.example.android.myapplication.R;
 
 /**
  * Created by Oriolcapo on 22/01/2016.

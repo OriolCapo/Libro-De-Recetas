@@ -8,7 +8,7 @@
     android:focusable="true"
     android:focusableInTouchMode="true"
     android:background="@color/gray_light"
-    tools:context="com.example.android.myapplication.EditIngredientsSubstitutsActivity">
+    tools:context="com.example.android.myapplication.Receptes.EditIngredientsSubstitutsActivity">
 
     <LinearLayout
         android:orientation="vertical"

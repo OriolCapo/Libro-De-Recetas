@@ -1,4 +1,4 @@
-package com.example.android.myapplication.data;
+package com.example.android.myapplication.Data;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -7,7 +7,6 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.provider.BaseColumns;
-import android.util.Log;
 
 import java.io.IOException;
 
@@ -35,6 +34,14 @@ public class DbHelper extends SQLiteOpenHelper {
                     MenuContracte.MenuEntry.COLUMN_NAME_MENU_ID + " TEXT,"  +
                     MenuContracte.MenuEntry.COLUMN_NAME_MENU_NAME + " TEXT," +
                     MenuContracte.MenuEntry.COLUMN_NAME_INFO + " TEXT" +
+                    ")";
+
+    private static final String SQL_CREATE_ENTRIES_DIA_MENU =
+            "CREATE TABLE IF NOT EXISTS " + DiaMenuContracte.DiaMenuEntry.TABLE_NAME + " (" +
+                    DiaMenuContracte.DiaMenuEntry._ID + " INTEGER PRIMARY KEY," +
+                    DiaMenuContracte.DiaMenuEntry.COLUMN_NAME_DIA_MENU_ID + " TEXT,"  +
+                    DiaMenuContracte.DiaMenuEntry.COLUMN_NAME_DIA_MENU_NAME + " TEXT," +
+                    DiaMenuContracte.DiaMenuEntry.COLUMN_NAME_MENU_NAME + " TEXT" +
                     ")";
 
     private static final String SQL_CREATE_ENTRIES_RECEPTES_MENU =
@@ -171,6 +178,7 @@ public class DbHelper extends SQLiteOpenHelper {
         sqLiteDatabase.execSQL(SQL_CREATE_ENTRIES_INGREDIENT_SUBSTITUT);
         sqLiteDatabase.execSQL(SQL_CREATE_ENTRIES_MENU);
         sqLiteDatabase.execSQL(SQL_CREATE_ENTRIES_RECEPTES_MENU);
+        sqLiteDatabase.execSQL(SQL_CREATE_ENTRIES_DIA_MENU);
     }
 
     @Override
@@ -180,6 +188,7 @@ public class DbHelper extends SQLiteOpenHelper {
         sqLiteDatabase.execSQL(SQL_CREATE_ENTRIES_INGREDIENT);
         sqLiteDatabase.execSQL(SQL_CREATE_ENTRIES_INGREDIENT_SUBSTITUT);
         sqLiteDatabase.execSQL(SQL_CREATE_ENTRIES_RECEPTES_MENU);
+        sqLiteDatabase.execSQL(SQL_CREATE_ENTRIES_DIA_MENU);
     }
 
     public final class ReceptaContracte {
@@ -203,6 +212,17 @@ public class DbHelper extends SQLiteOpenHelper {
             public static final String COLUMN_NAME_MENU_ID = "id";
             public static final String COLUMN_NAME_MENU_NAME = "nomMenu";
             public static final String COLUMN_NAME_INFO = "informacio";
+        }
+    }
+
+    public final class DiaMenuContracte {
+        public DiaMenuContracte() {}
+
+        public abstract class DiaMenuEntry implements BaseColumns {
+            public static final String TABLE_NAME = "diamenu";
+            public static final String COLUMN_NAME_DIA_MENU_ID = "id";
+            public static final String COLUMN_NAME_DIA_MENU_NAME = "nomDiaMenu";
+            public static final String COLUMN_NAME_MENU_NAME = "nomMenu";
         }
     }
 

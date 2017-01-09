@@ -1,11 +1,10 @@
-package com.example.android.myapplication.data;
+package com.example.android.myapplication.Data;
 
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 

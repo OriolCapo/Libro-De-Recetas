@@ -1,4 +1,4 @@
-package com.example.android.myapplication;
+package com.example.android.myapplication.Receptes.FragmentsRecepta;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -9,9 +9,10 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.Toast;
 
-import com.example.android.myapplication.data.IngredientsReceptesDAO;
+import com.example.android.myapplication.Receptes.IngredientsSubstitutsActivity;
+import com.example.android.myapplication.R;
+import com.example.android.myapplication.Data.IngredientsReceptesDAO;
 import java.util.ArrayList;
 
 /**

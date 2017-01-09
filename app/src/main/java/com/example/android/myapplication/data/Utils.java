@@ -1,4 +1,4 @@
-package com.example.android.myapplication.data;
+package com.example.android.myapplication.Data;
 
 /**
  * Created by Oriolcapo on 12/01/2016.

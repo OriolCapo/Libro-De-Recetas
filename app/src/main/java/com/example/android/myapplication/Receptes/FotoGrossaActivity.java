@@ -1,13 +1,13 @@
-package com.example.android.myapplication;
+package com.example.android.myapplication.Receptes;
 
 import android.app.Activity;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.widget.ImageView;
 
-import com.example.android.myapplication.data.Fotos;
+import com.example.android.myapplication.Data.Fotos;
+import com.example.android.myapplication.R;
 
-public class FotoGrossa extends Activity {
+public class FotoGrossaActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

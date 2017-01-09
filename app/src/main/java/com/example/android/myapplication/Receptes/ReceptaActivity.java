@@ -1,4 +1,4 @@
-package com.example.android.myapplication;
+package com.example.android.myapplication.Receptes;
 
 import android.content.Intent;
 import android.graphics.Point;
@@ -14,8 +14,13 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.android.myapplication.data.Fotos;
-import com.example.android.myapplication.data.ReceptesDAO;
+import com.example.android.myapplication.Receptes.FragmentsRecepta.ReceptaDescripcioFragment;
+import com.example.android.myapplication.Receptes.FragmentsRecepta.ReceptaFotosFragment;
+import com.example.android.myapplication.Receptes.FragmentsRecepta.ReceptaIngredientsFragment;
+import com.example.android.myapplication.Receptes.FragmentsRecepta.ReceptaSuggerimentsFragment;
+import com.example.android.myapplication.Data.Fotos;
+import com.example.android.myapplication.Data.ReceptesDAO;
+import com.example.android.myapplication.R;
 
 public class ReceptaActivity extends FragmentActivity {
 
@@ -74,7 +79,7 @@ public class ReceptaActivity extends FragmentActivity {
         imatge.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(ReceptaActivity.this, FotoGrossa.class);
+                Intent intent = new Intent(ReceptaActivity.this, FotoGrossaActivity.class);
                 intent.putExtra("nomRecepta", nomRecepta);
                 startActivity(intent);
             }

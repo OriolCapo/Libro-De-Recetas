@@ -1,22 +1,22 @@
-package com.example.android.myapplication;
+package com.example.android.myapplication.Menus;
 
 import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.LinearLayout;
-import android.widget.Toast;
 
-import com.example.android.myapplication.data.MenuDAO;
-import com.example.android.myapplication.data.Recepta;
-import com.example.android.myapplication.data.ReceptesDAO;
+import com.example.android.myapplication.Data.MenuDAO;
+import com.example.android.myapplication.Data.ReceptesDAO;
+import com.example.android.myapplication.R;
 
 import java.util.ArrayList;
 
-public class AfegirReceptesMenuActivity extends ActionBarActivity {
+public class AfegirReceptesMenuActivity extends AppCompatActivity {
 
     private MenuDAO menuDAO;
     private ReceptesDAO receptesDAO;
@@ -37,10 +37,10 @@ public class AfegirReceptesMenuActivity extends ActionBarActivity {
         ArrayList<String> receptesMenu = menuDAO.getNomsReceptesOfMenu(nomMenu);
         for (int i=0; i<nomsReceptes.size(); ++i) {
             String nomR = nomsReceptes.get(i);
-            String nomR2 = nomR.replace(" ","_");
+
             final CheckBox checkBox = new CheckBox(this);
-            checkBox.setText(nomR);
-            boolean hi_es = receptesMenu.contains(nomR2);
+            checkBox.setText(nomR.replace("_"," "));
+            boolean hi_es = receptesMenu.contains(nomR);
             if (hi_es) checkBox.setChecked(true);
             view.addView(checkBox,1);
 

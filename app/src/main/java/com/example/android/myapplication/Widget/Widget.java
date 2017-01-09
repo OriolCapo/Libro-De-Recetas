@@ -9,9 +9,9 @@ import android.content.Intent;
 import android.net.Uri;
 import android.widget.RemoteViews;
 
-import com.example.android.myapplication.LlistatReceptesActivity;
+import com.example.android.myapplication.Receptes.LlistatReceptesActivity;
 import com.example.android.myapplication.R;
-import com.example.android.myapplication.ReceptaActivity;
+import com.example.android.myapplication.Receptes.ReceptaActivity;
 
 public class Widget extends AppWidgetProvider {
 

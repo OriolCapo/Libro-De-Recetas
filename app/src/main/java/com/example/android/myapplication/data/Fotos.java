@@ -1,4 +1,4 @@
-package com.example.android.myapplication.data;
+package com.example.android.myapplication.Data;
 
 import android.content.Context;
 import android.content.ContextWrapper;
@@ -10,7 +10,6 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.ArrayList;
 
 /**
  * Created by Oriolcapo on 12/01/2016.

@@ -7,9 +7,8 @@ import android.widget.RemoteViews;
 import android.widget.RemoteViewsService;
 
 import com.example.android.myapplication.R;
-import com.example.android.myapplication.ReceptaActivity;
-import com.example.android.myapplication.data.Fotos;
-import com.example.android.myapplication.data.ReceptesDAO;
+import com.example.android.myapplication.Data.Fotos;
+import com.example.android.myapplication.Data.ReceptesDAO;
 
 import java.util.ArrayList;
 
