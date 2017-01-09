@@ -11,7 +11,7 @@ import com.example.android.myapplication.data.IngredientsSubstitutsDAO;
 
 public class SplashActivity extends Activity {
 
-    private final int DURACION_SPLASH = 4000; // 3 segundos
+    private final int DURACION_SPLASH = 2000; // 3 segundos
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

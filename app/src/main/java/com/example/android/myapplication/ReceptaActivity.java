@@ -63,7 +63,7 @@ public class ReceptaActivity extends FragmentActivity {
         }
         ReceptesDAO rDAO = new ReceptesDAO(this);
         if (rDAO.getIfFavourite(nomRecepta)) button_favourite.setImageResource(R.drawable.ic_star_white_18dp);
-        titol.setText(nomRecepta);
+        titol.setText(nomRecepta.replace('_',' '));
         imatge.setScaleType(ImageView.ScaleType.CENTER_CROP);
         mSectionsPagerAdapter = new SectionsPagerAdapter(
                 getSupportFragmentManager());

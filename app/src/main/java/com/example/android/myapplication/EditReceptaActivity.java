@@ -28,6 +28,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.android.myapplication.Widget.Widget;
 import com.example.android.myapplication.data.Fotos;
 import com.example.android.myapplication.data.IngredientsReceptesDAO;
 import com.example.android.myapplication.data.IngredientsSubstitutsDAO;
@@ -86,7 +87,6 @@ public class EditReceptaActivity extends ActionBarActivity implements View.OnCli
         ingrOnLayout = new ArrayList<>();
         modificar = false;
         recepta = new Recepta();
-
         Intent intent = getIntent();
         String nomR = intent.getStringExtra("nomRecepta");
         Display display = getWindowManager().getDefaultDisplay();
@@ -315,6 +315,7 @@ public class EditReceptaActivity extends ActionBarActivity implements View.OnCli
                         Intent returnIntent = new Intent();
                         returnIntent.putExtra("nomRecepta", recepta.getNom());
                         setResult(Activity.RESULT_OK, returnIntent);
+                        Widget.class.notify();
                     }
                     finish();
                 }

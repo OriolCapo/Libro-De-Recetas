@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:tools="http://schemas.android.com/tools"
+android:orientation="vertical"
+android:id="@+id/activity_menus"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+android:paddingBottom="@dimen/activity_vertical_margin"
+android:paddingLeft="@dimen/activity_horizontal_margin"
+android:paddingRight="@dimen/activity_horizontal_margin"
+android:paddingTop="@dimen/activity_vertical_margin"
+tools:context="com.example.android.myapplication.CreaMenuActivity">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="fill_vertical"
+        android:text="Introdueix el nom del menú que vols crear:"
+        android:textColor="#000000"
+        android:textSize="15dp"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:ems="10"
+        android:layout_marginTop="10dp"
+        android:id="@+id/editText_nomMenu"
+        android:textSize="17dp"
+        android:imeOptions="actionNext"
+        android:maxLines="1"
+        android:inputType="text"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="fill_vertical"
+        android:layout_marginTop="10dp"
+        android:text="Introdueix informació addicional del menu:"
+        android:textColor="#000000"
+        android:textSize="15dp"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#F5F5F5"
+        android:gravity="start"
+        android:text=""
+        android:ems="10"
+        android:layout_marginTop="10dp"
+        android:id="@+id/editText_menu_info"
+        android:textSize="17dp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:textColor="#000000"
+        android:text="Selecciona els dies que vols que apareixin en el menú:"
+        android:textSize="15dp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="10dp"
+        android:weightSum="1">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/button_mon"
+                android:layout_marginBottom="5dp"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:gravity="center"
+                android:background="@drawable/round_button_lightgrey"
+                android:textColor="#FFFFFF"
+                android:textSize="10dp"
+                android:text="Mon"
+                android:onClick="onClick"/>
+
+            <Button
+                android:id="@+id/button_tue"
+                android:layout_marginLeft="5dp"
+                android:layout_marginBottom="5dp"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:gravity="center"
+                android:background="@drawable/round_button_lightgrey"
+                android:textColor="#FFFFFF"
+                android:textSize="10dp"
+                android:text="Tue"
+                android:onClick="onClick"/>
+
+            <Button
+                android:id="@+id/button_wed"
+                android:layout_marginLeft="5dp"
+                android:layout_marginBottom="5dp"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:gravity="center"
+                android:background="@drawable/round_button_lightgrey"
+                android:textColor="#FFFFFF"
+                android:textSize="10dp"
+                android:text="Wed"
+                android:onClick="onClick"/>
+
+            <Button
+                android:id="@+id/button_thu"
+                android:layout_marginLeft="5dp"
+                android:layout_marginBottom="5dp"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:gravity="center"
+                android:background="@drawable/round_button_lightgrey"
+                android:textColor="#FFFFFF"
+                android:textSize="10dp"
+                android:text="Thu"
+                android:onClick="onClick"/>
+
+            <Button
+                android:id="@+id/button_fri"
+                android:layout_marginLeft="5dp"
+                android:layout_marginBottom="5dp"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:gravity="center"
+                android:background="@drawable/round_button_lightgrey"
+                android:textColor="#FFFFFF"
+                android:textSize="10dp"
+                android:text="Fri"
+                android:onClick="onClick"/>
+
+            <Button
+                android:id="@+id/button_sat"
+                android:layout_marginLeft="5dp"
+                android:layout_marginBottom="5dp"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:gravity="center"
+                android:background="@drawable/round_button_lightgrey"
+                android:textColor="#FFFFFF"
+                android:textSize="10dp"
+                android:text="Sat"
+                android:onClick="onClick"/>
+
+            <Button
+                android:id="@+id/button_sun"
+                android:layout_marginLeft="5dp"
+                android:layout_marginBottom="5dp"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:gravity="center"
+                android:background="@drawable/round_button_lightgrey"
+                android:textColor="#FFFFFF"
+                android:textSize="10dp"
+                android:text="Sun"
+                android:onClick="onClick"/>
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+
+</LinearLayout>

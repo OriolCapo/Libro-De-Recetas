@@ -29,6 +29,22 @@ public class DbHelper extends SQLiteOpenHelper {
                     ReceptaContracte.ReceptaEntry.COLUMN_NAME_FAVOURITE + " TEXT" +
                     ")";
 
+    private static final String SQL_CREATE_ENTRIES_MENU =
+            "CREATE TABLE IF NOT EXISTS " + MenuContracte.MenuEntry.TABLE_NAME + " (" +
+                    MenuContracte.MenuEntry._ID + " INTEGER PRIMARY KEY," +
+                    MenuContracte.MenuEntry.COLUMN_NAME_MENU_ID + " TEXT,"  +
+                    MenuContracte.MenuEntry.COLUMN_NAME_MENU_NAME + " TEXT," +
+                    MenuContracte.MenuEntry.COLUMN_NAME_INFO + " TEXT" +
+                    ")";
+
+    private static final String SQL_CREATE_ENTRIES_RECEPTES_MENU =
+            "CREATE TABLE IF NOT EXISTS " + ReceptaMenuContracte.ReceptaMenuEntry.TABLE_NAME + " (" +
+                    ReceptaMenuContracte.ReceptaMenuEntry._ID + " INTEGER PRIMARY KEY," +
+                    ReceptaMenuContracte.ReceptaMenuEntry.COLUMN_NAME_RECEPTA_MENU_ID + " TEXT,"  +
+                    ReceptaMenuContracte.ReceptaMenuEntry.COLUMN_NAME_MENU_NAME + " TEXT," +
+                    ReceptaMenuContracte.ReceptaMenuEntry.COLUMN_NAME_RECEPTA_NAME + " TEXT" +
+                    ")";
+
     private static final String SQL_CREATE_ENTRIES_INGREDIENT =
             "CREATE TABLE IF NOT EXISTS " + IngredientReceptaContracte.IngredientReceptaEntry.TABLE_NAME + " (" +
                     IngredientReceptaContracte.IngredientReceptaEntry._ID + " INTEGER PRIMARY KEY," +
@@ -153,13 +169,17 @@ public class DbHelper extends SQLiteOpenHelper {
         sqLiteDatabase.execSQL(SQL_CREATE_ENTRIES_INGREDIENT);
         InsertsIngredientsReceptes(sqLiteDatabase);
         sqLiteDatabase.execSQL(SQL_CREATE_ENTRIES_INGREDIENT_SUBSTITUT);
+        sqLiteDatabase.execSQL(SQL_CREATE_ENTRIES_MENU);
+        sqLiteDatabase.execSQL(SQL_CREATE_ENTRIES_RECEPTES_MENU);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
         sqLiteDatabase.execSQL(SQL_CREATE_ENTRIES_RECEPTA);
+        sqLiteDatabase.execSQL(SQL_CREATE_ENTRIES_MENU);
         sqLiteDatabase.execSQL(SQL_CREATE_ENTRIES_INGREDIENT);
         sqLiteDatabase.execSQL(SQL_CREATE_ENTRIES_INGREDIENT_SUBSTITUT);
+        sqLiteDatabase.execSQL(SQL_CREATE_ENTRIES_RECEPTES_MENU);
     }
 
     public final class ReceptaContracte {
@@ -172,6 +192,28 @@ public class DbHelper extends SQLiteOpenHelper {
             public static final String COLUMN_NAME_RECEPTA_DESCRIPTION = "descripcio";
             public static final String COLUMN_NAME_RECEPTA_SUGGERIMENTS = "suggeriments";
             public static final String COLUMN_NAME_FAVOURITE = "preferida";
+        }
+    }
+
+    public final class MenuContracte {
+        public MenuContracte() {}
+
+        public abstract class MenuEntry implements BaseColumns {
+            public static final String TABLE_NAME = "menus";
+            public static final String COLUMN_NAME_MENU_ID = "id";
+            public static final String COLUMN_NAME_MENU_NAME = "nomMenu";
+            public static final String COLUMN_NAME_INFO = "informacio";
+        }
+    }
+
+    public final class ReceptaMenuContracte {
+        public ReceptaMenuContracte() {}
+
+        public abstract class ReceptaMenuEntry implements BaseColumns {
+            public static final String TABLE_NAME = "receptaMenu";
+            public static final String COLUMN_NAME_RECEPTA_MENU_ID = "id";
+            public static final String COLUMN_NAME_MENU_NAME = "nomMenu";
+            public static final String COLUMN_NAME_RECEPTA_NAME = "nomRecepta";
         }
     }
 

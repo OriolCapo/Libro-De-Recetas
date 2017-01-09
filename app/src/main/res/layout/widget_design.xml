@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:layout_margin="4dp"
+    android:background="#E0E0E0">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal"
+        android:background="#616161">
+
+        <ImageView
+            android:layout_width="60dp"
+            android:layout_height="50dp"
+            android:paddingLeft="5dp"
+            android:id="@+id/imageWidget"
+            android:src="@drawable/logo_tcc"
+            android:background="#616161"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:text="Receptes"
+            android:textSize="20dp"
+            android:gravity="fill_vertical"
+            android:paddingLeft="10dp"
+            android:textColor="#ffffff"
+            android:layout_gravity="right"
+            android:id="@+id/textWidget"
+            android:background="#616161"/>
+    </LinearLayout>
+
+    <ListView
+        android:layout_marginTop="10dp"
+        android:id="@+id/listViewWidget"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+</LinearLayout>

@@ -1,27 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.android.myapplication" >
+    package="com.example.android.myapplication">
 
     <application
         android:allowBackup="true"
-        android:icon="@drawable/logo_tcc2"
+        android:icon="@drawable/paella"
         android:label="Receptes"
-        android:theme="@style/AppTheme" >
+        android:theme="@style/AppTheme">
         <activity
             android:name=".LlistatReceptesActivity"
             android:label="Les meves receptes"
-            android:windowSoftInputMode="stateHidden" >
-        </activity>
-        <activity android:name=".ReceptaActivity" >
-        </activity>
+            android:windowSoftInputMode="stateHidden" />
+        <activity android:name=".ReceptaActivity" />
         <activity
             android:name=".EditReceptaActivity"
             android:label="Modifica la recepta"
-            android:windowSoftInputMode="stateHidden" >
-        </activity>
+            android:windowSoftInputMode="stateHidden" />
         <activity
             android:name=".SplashActivity"
-            android:label="" >
+            android:label="">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -31,16 +28,31 @@
         <activity
             android:name=".IngredientsSubstitutsActivity"
             android:label="Ingredients Substituts"
-            android:windowSoftInputMode="stateHidden" >
-        </activity>
+            android:windowSoftInputMode="stateHidden" />
         <activity
             android:name=".EditIngredientsSubstitutsActivity"
-            android:label="Edita Substituts" >
-        </activity>
-        <activity android:name=".Proves" >
-        </activity>
-        <activity android:name=".FotoGrossa" >
-        </activity>
+            android:label="Edita Substituts" />
+        <activity android:name=".Proves" />
+        <activity android:name=".FotoGrossa" />
+        <activity android:name=".MenuActivity" />
+
+        <receiver android:name=".Widget.Widget">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/widget_info" />
+        </receiver>
+
+        <service
+            android:name=".Widget.WidgetService"
+            android:permission="android.permission.BIND_REMOTEVIEWS" />
+
+        <activity android:name=".CreaMenuActivity" />
+        <activity android:name=".LlistatMenusActivity" />
+        <activity android:name=".AfegirReceptesMenuActivity"></activity>
     </application>
 
 </manifest>
