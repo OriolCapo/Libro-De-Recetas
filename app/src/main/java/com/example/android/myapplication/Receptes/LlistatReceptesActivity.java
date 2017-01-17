@@ -95,38 +95,7 @@ public class LlistatReceptesActivity extends AppCompatActivity implements View.O
                 return false;
             }
         });
-/*
-        slide_list_menu = (ListView) findViewById(R.id.list_view34);
-        drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
 
-        actualitza_barra_lateral();
-
-        slide_list_menu.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                if (i == 0) {
-                    imageAdapter.canviaAEsborrarFotos();
-                    drawerLayout.closeDrawers();
-                } else if (i == 1) {
-                    startActivity(new Intent(LlistatReceptesActivity.this, CreaMenuActivity.class));
-                } else {
-                    Intent intent = new Intent(LlistatReceptesActivity.this, MenuActivity.class);
-                    intent.putExtra("nomMenu",opciones2.get(i));
-                    startActivity(intent);
-                    drawerLayout.closeDrawers();
-                }
-            }
-        });
-        slide_list_menu.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-            @Override
-            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
-                if (i > 1){
-                    getDeleteDialog(opciones2.get(i)).show();
-                }
-                return false;
-            }
-        });*/
-        //_______________________
         Display display = getWindowManager().getDefaultDisplay();
         Point size = new Point();
         display.getSize(size);

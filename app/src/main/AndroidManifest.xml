@@ -55,7 +55,9 @@
         <activity android:name=".Menus.CreaMenuActivity" />
         <activity android:name=".Menus.AfegirReceptesMenuActivity" />
         <activity android:name=".Menus.ModificaMenuActivity" />
-        <activity android:name=".Menus.LlistatMenusActivity"></activity>
+        <activity
+            android:name=".Menus.LlistatMenusActivity"
+            android:label="Llistat de menús" />
     </application>
 
 </manifest>

@@ -55,11 +55,10 @@ public class EditIngredientsSubstitutsActivity extends AppCompatActivity impleme
     private void showIngredientsList() {
         buidaLlistaIngredients();
         int quants = ll.getChildCount();
-        LayoutInflater inflater = ( LayoutInflater )this.
-                getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        LayoutInflater inflater = ( LayoutInflater )this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View rowView;
         for (int i=0; i<ingrOnLayout.size(); ++i) {
-            rowView = inflater.inflate(R.layout.nova_recepta_ingredient_item,null);
+            rowView = inflater.inflate(R.layout.nova_recepta_ingredient_item, null);
             final TextView textV = (TextView)rowView.findViewById(R.id.TextView_Ingredient);
             textV.setText(ingrOnLayout.get(i));
             ImageButton eliminarEntrada = (ImageButton)rowView.findViewById(R.id.Button_Eliminar_Ingredient);

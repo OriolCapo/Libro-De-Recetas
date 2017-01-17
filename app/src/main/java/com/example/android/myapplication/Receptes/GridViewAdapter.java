@@ -68,10 +68,6 @@ public class GridViewAdapter extends BaseAdapter{
         return 0;
     }
 
-    public String getThumbName(int position){
-        return mThumbNoms.get(position);
-    }
-
     public class Holder
     {
         TextView tv;

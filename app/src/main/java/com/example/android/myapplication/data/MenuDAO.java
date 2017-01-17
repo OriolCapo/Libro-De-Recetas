@@ -77,10 +77,12 @@ public class MenuDAO {
     public void deleteMenu(String nomMenu) {
         open();
         String whereclause1 = DbHelper.MenuContracte.MenuEntry.COLUMN_NAME_MENU_NAME + " = '" + nomMenu + "'";
-        String whereclause2 = DbHelper.ReceptaMenuContracte.ReceptaMenuEntry.COLUMN_NAME_MENU_NAME + " = '" + nomMenu + "'";
+        String whereclause2 = DbHelper.DiaMenuContracte.DiaMenuEntry.COLUMN_NAME_MENU_NAME + " = '" + nomMenu + "'";
+        String whereclause3 = DbHelper.ReceptaDiaMenuContracte.ReceptaDiaMenuEntry.COLUMN_NAME_MENU_NAME + " = '" + nomMenu + "'";
         int q1 = database.delete(DbHelper.MenuContracte.MenuEntry.TABLE_NAME, whereclause1, null);
-        int q2 = database.delete(DbHelper.ReceptaMenuContracte.ReceptaMenuEntry.TABLE_NAME, whereclause2, null);
-        if (q1 != -1 && q2 != -1) Toast.makeText(context,"Menu eliminat correctament",Toast.LENGTH_LONG).show();
+        int q2 = database.delete(DbHelper.DiaMenuContracte.DiaMenuEntry.TABLE_NAME, whereclause2, null);
+        int q3 = database.delete(DbHelper.ReceptaDiaMenuContracte.ReceptaDiaMenuEntry.TABLE_NAME, whereclause3, null);
+        if (q1 != -1 && q2 != -1 && q3 != -1) Toast.makeText(context,"Menu eliminat correctament",Toast.LENGTH_LONG).show();
         else Toast.makeText(context,"Alguna cosa ha sortit malament",Toast.LENGTH_LONG).show();
         close();
     }
@@ -104,58 +106,6 @@ public class MenuDAO {
         return quants;
     }
 
-
-    //----------------------------------------------------------------------------------------------------------------
-    //  Funcions de Recepta-Menu
-    //----------------------------------------------------------------------------------------------------------------
-
-    public long createReceptaMenu (String nomMenu, String nomRecepta) {
-        open();
-        ContentValues values = new ContentValues();
-        values.put(DbHelper.ReceptaMenuContracte.ReceptaMenuEntry.COLUMN_NAME_MENU_NAME, nomMenu);
-        values.put(DbHelper.ReceptaMenuContracte.ReceptaMenuEntry.COLUMN_NAME_RECEPTA_NAME, nomRecepta);
-        long insertId = database.insert(DbHelper.ReceptaMenuContracte.ReceptaMenuEntry.TABLE_NAME, null, values);
-        close();
-        return insertId;
-    }
-
-    public ArrayList<String> getNomsReceptesOfMenu (String nomMenu) {
-        open();
-        ArrayList<String> receptes = new ArrayList<>();
-        String whereclause = DbHelper.ReceptaMenuContracte.ReceptaMenuEntry.COLUMN_NAME_MENU_NAME + " = '" + nomMenu + "'";
-        Cursor cursor = database.query(DbHelper.ReceptaMenuContracte.ReceptaMenuEntry.TABLE_NAME, null,whereclause, null, null, null, null);
-        if (cursor.moveToFirst()) {
-            do {
-                String nomRecepta = cursor.getString(cursor.getColumnIndex(DbHelper.ReceptaMenuContracte.ReceptaMenuEntry.COLUMN_NAME_RECEPTA_NAME));
-                if(!receptes.contains(nomRecepta)) receptes.add(nomRecepta);
-            } while (cursor.moveToNext());
-        }
-        cursor.close();
-        close();
-        return receptes;
-    }
-
-    public void deleteReceptaMenu(String nomMenu, String nomRecepta) {
-        open();
-        String whereclause = DbHelper.ReceptaMenuContracte.ReceptaMenuEntry.COLUMN_NAME_MENU_NAME + " = '" + nomMenu + "' AND " +
-                DbHelper.ReceptaMenuContracte.ReceptaMenuEntry.COLUMN_NAME_RECEPTA_NAME + " = '" + nomRecepta + "'";
-        database.delete(DbHelper.ReceptaMenuContracte.ReceptaMenuEntry.TABLE_NAME, whereclause, null);
-        close();
-    }
-
-    public boolean existReceptaMenu(String nomMenu, String nomRecepta) {
-        open();
-        boolean ret;
-        String where = DbHelper.ReceptaMenuContracte.ReceptaMenuEntry.COLUMN_NAME_MENU_NAME + " = '" + nomMenu +
-                "' AND " + DbHelper.ReceptaMenuContracte.ReceptaMenuEntry.COLUMN_NAME_RECEPTA_NAME + " = '" + nomRecepta + "'";
-        System.out.println("ANTES DE LA QUERY");
-        Cursor cursor = database.query(DbHelper.ReceptaMenuContracte.ReceptaMenuEntry.TABLE_NAME, null, where, null, null, null, null);
-        System.out.println("DESPUES DE LA QUERY");
-        if (cursor.moveToFirst()) ret = true;
-        else ret = false;
-        close();
-        return ret;
-    }
 
     //----------------------------------------------------------------------------------------------------------------
     //  Funcions de Dia-Menu
@@ -191,8 +141,71 @@ public class MenuDAO {
         open();
         String whereclause = DbHelper.DiaMenuContracte.DiaMenuEntry.COLUMN_NAME_MENU_NAME + " = '" + nomMenu + "' AND " +
                 DbHelper.DiaMenuContracte.DiaMenuEntry.COLUMN_NAME_DIA_MENU_NAME + " = '" + nomDia + "'";
+        String whereclause2 = DbHelper.ReceptaDiaMenuContracte.ReceptaDiaMenuEntry.COLUMN_NAME_MENU_NAME + " = '" + nomMenu + "' AND " +
+                DbHelper.ReceptaDiaMenuContracte.ReceptaDiaMenuEntry.COLUMN_NAME_DIA_NAME + " = '" + nomDia + "'";
         database.delete(DbHelper.DiaMenuContracte.DiaMenuEntry.TABLE_NAME, whereclause, null);
+        database.delete(DbHelper.ReceptaDiaMenuContracte.ReceptaDiaMenuEntry.TABLE_NAME, whereclause2, null);
         close();
+    }
+
+    //----------------------------------------------------------------------------------------------------------------
+    //  Funcions de Recepta-Dia-Menu
+    //----------------------------------------------------------------------------------------------------------------
+
+    public long createReceptaDiaMenu (String nomMenu, String nomDia, String nomMoment, String nomRecepta) {
+        open();
+        ContentValues values = new ContentValues();
+        values.put(DbHelper.ReceptaDiaMenuContracte.ReceptaDiaMenuEntry.COLUMN_NAME_MENU_NAME,nomMenu);
+        values.put(DbHelper.ReceptaDiaMenuContracte.ReceptaDiaMenuEntry.COLUMN_NAME_DIA_NAME,nomDia);
+        values.put(DbHelper.ReceptaDiaMenuContracte.ReceptaDiaMenuEntry.COLUMN_NAME_MOMENT,nomMoment);
+        values.put(DbHelper.ReceptaDiaMenuContracte.ReceptaDiaMenuEntry.COLUMN_NAME_RECEPTA_DIA_NAME,nomRecepta);
+        long insertId = database.insert(DbHelper.ReceptaDiaMenuContracte.ReceptaDiaMenuEntry.TABLE_NAME, null, values);
+        close();
+        return insertId;
+    }
+
+    public void deleteReceptaDiaMenu(String nomMenu, String nomDia, String nomRecepta) {
+        open();
+        String whereclause = DbHelper.ReceptaDiaMenuContracte.ReceptaDiaMenuEntry.COLUMN_NAME_MENU_NAME + " = '" + nomMenu + "' AND " +
+                DbHelper.ReceptaDiaMenuContracte.ReceptaDiaMenuEntry.COLUMN_NAME_DIA_NAME + " = '" + nomDia + "' AND " +
+                DbHelper.ReceptaDiaMenuContracte.ReceptaDiaMenuEntry.COLUMN_NAME_RECEPTA_DIA_NAME + " = '" + nomRecepta + "'";
+        database.delete(DbHelper.ReceptaDiaMenuContracte.ReceptaDiaMenuEntry.TABLE_NAME, whereclause, null);
+        close();
+    }
+
+    public ArrayList<String> getNomsReceptesDiaMenu(String nomMenu, String nomDia) {
+        open();
+        ArrayList<String> receptes = new ArrayList<>();
+        String whereclause = DbHelper.ReceptaDiaMenuContracte.ReceptaDiaMenuEntry.COLUMN_NAME_MENU_NAME + " = '" + nomMenu + "' AND " +
+                DbHelper.ReceptaDiaMenuContracte.ReceptaDiaMenuEntry.COLUMN_NAME_DIA_NAME + " = '" + nomDia + "'";
+        Cursor cursor = database.query(DbHelper.ReceptaDiaMenuContracte.ReceptaDiaMenuEntry.TABLE_NAME, null,whereclause, null, null, null, null);
+        if (cursor.moveToFirst()) {
+            do {
+                String nomRecepta = cursor.getString(cursor.getColumnIndex(DbHelper.ReceptaDiaMenuContracte.ReceptaDiaMenuEntry.COLUMN_NAME_RECEPTA_DIA_NAME));
+                receptes.add(nomRecepta);
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        close();
+        return receptes;
+    }
+
+    public ArrayList<String> getNomsReceptesMoment (String nomMenu, String nomDia, String nomMoment) {
+        open();
+        ArrayList<String> receptes = new ArrayList<>();
+        String whereclause = DbHelper.ReceptaDiaMenuContracte.ReceptaDiaMenuEntry.COLUMN_NAME_MENU_NAME + " = '" + nomMenu + "' AND " +
+                DbHelper.ReceptaDiaMenuContracte.ReceptaDiaMenuEntry.COLUMN_NAME_DIA_NAME + " = '" + nomDia + "' AND " +
+                DbHelper.ReceptaDiaMenuContracte.ReceptaDiaMenuEntry.COLUMN_NAME_MOMENT + " = '" + nomMoment + "'";
+        Cursor cursor = database.query(DbHelper.ReceptaDiaMenuContracte.ReceptaDiaMenuEntry.TABLE_NAME, null,whereclause, null, null, null, null);
+        if (cursor.moveToFirst()) {
+            do {
+                String nomRecepta = cursor.getString(cursor.getColumnIndex(DbHelper.ReceptaDiaMenuContracte.ReceptaDiaMenuEntry.COLUMN_NAME_RECEPTA_DIA_NAME));
+                receptes.add(nomRecepta);
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        close();
+        return receptes;
     }
 
 }

@@ -6,8 +6,9 @@
     android:orientation="vertical">
 
     <RelativeLayout
-        android:orientation="horizontal" android:layout_width="match_parent"
-        android:layout_height="40sp"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:gravity="center_vertical"
         android:padding="8dp">
 
@@ -23,9 +24,10 @@
 
         <ImageButton
             android:id="@+id/Button_Eliminar_Ingredient"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:background="@drawable/ic_clear"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/ic_clear_black_18dp"
+            android:onClick="onClick"
             android:gravity="center"
             android:scaleType="center"
             android:layout_alignParentEnd="true" />

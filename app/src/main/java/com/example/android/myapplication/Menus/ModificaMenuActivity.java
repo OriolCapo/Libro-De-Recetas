@@ -18,6 +18,7 @@ import java.util.ArrayList;
 
 public class ModificaMenuActivity extends AppCompatActivity implements View.OnClickListener{
 
+    public static int REQUEST_CODE = 666;
     private EditText et_nomMenu;
     private EditText et_info;
     private String nomMenu;
@@ -175,22 +176,26 @@ public class ModificaMenuActivity extends AppCompatActivity implements View.OnCl
                 int quants = menuDAO.updateMenu(nomMenu,newNom,info);
                 if (quants > 0) {
                     Toast.makeText(this,"Menu modificat correctament",Toast.LENGTH_LONG).show();
-                    if(mon) menuDAO.createDiaMenu(nomMenu,"monday");
+                    if(mon) menuDAO.createDiaMenu(newNom,"monday");
                     else menuDAO.deleteDiaMenu(nomMenu,"monday");
-                    if(tue) menuDAO.createDiaMenu(nomMenu,"tuesday");
+                    if(tue) menuDAO.createDiaMenu(newNom,"tuesday");
                     else menuDAO.deleteDiaMenu(nomMenu,"tuesday");
-                    if(wed) menuDAO.createDiaMenu(nomMenu,"wednesday");
+                    if(wed) menuDAO.createDiaMenu(newNom,"wednesday");
                     else menuDAO.deleteDiaMenu(nomMenu,"wednesday");
-                    if(thu) menuDAO.createDiaMenu(nomMenu,"thursday");
+                    if(thu) menuDAO.createDiaMenu(newNom,"thursday");
                     else menuDAO.deleteDiaMenu(nomMenu,"thursday");
-                    if(fri) menuDAO.createDiaMenu(nomMenu,"friday");
+                    if(fri) menuDAO.createDiaMenu(newNom,"friday");
                     else menuDAO.deleteDiaMenu(nomMenu,"friday");
-                    if(sat) menuDAO.createDiaMenu(nomMenu,"saturday");
+                    if(sat) menuDAO.createDiaMenu(newNom,"saturday");
                     else menuDAO.deleteDiaMenu(nomMenu,"saturday");
-                    if(sun) menuDAO.createDiaMenu(nomMenu,"sunday");
+                    if(sun) menuDAO.createDiaMenu(newNom,"sunday");
                     else menuDAO.deleteDiaMenu(nomMenu,"sunday");
                 }
                 else Toast.makeText(this,"Alguna cosa ha sortit malament",Toast.LENGTH_LONG).show();
+                Intent output  = new Intent();
+                output.putExtra(MenuActivity.CODI_NOM, newNom);
+                output.putExtra(MenuActivity.CODI_INFO, info);
+                setResult(RESULT_OK, output);
                 finish();
             }
         }

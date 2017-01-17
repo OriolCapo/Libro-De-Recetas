@@ -56,13 +56,6 @@ public class ReceptesDAO {
         IngredientsReceptesDAO irDAO = new IngredientsReceptesDAO(context);
         irDAO.deleteIngredientsOfRecepta(name);
         Fotos.eliminaFoto(name, context);
-
-        MenuDAO menuDAO = new MenuDAO(context);
-        ArrayList<String> menus = menuDAO.getAllMenusNames();
-        for (int i=0; i<menus.size(); ++i){
-            if (menuDAO.existReceptaMenu(menus.get(i),name)) menuDAO.deleteReceptaMenu(menus.get(i),name);
-        }
-
         return quants;
     }
 

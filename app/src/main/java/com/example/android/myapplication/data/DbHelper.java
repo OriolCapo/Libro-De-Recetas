@@ -44,6 +44,16 @@ public class DbHelper extends SQLiteOpenHelper {
                     DiaMenuContracte.DiaMenuEntry.COLUMN_NAME_MENU_NAME + " TEXT" +
                     ")";
 
+    private static final String SQL_CREATE_ENTRIES_RECEPTA_DIA_MENU =
+            "CREATE TABLE IF NOT EXISTS " + ReceptaDiaMenuContracte.ReceptaDiaMenuEntry.TABLE_NAME + " (" +
+                    ReceptaDiaMenuContracte.ReceptaDiaMenuEntry._ID + " INTEGER PRIMARY KEY," +
+                    ReceptaDiaMenuContracte.ReceptaDiaMenuEntry.COLUMN_NAME_RECEPTA_DIA_ID + " TEXT,"  +
+                    ReceptaDiaMenuContracte.ReceptaDiaMenuEntry.COLUMN_NAME_RECEPTA_DIA_NAME + " TEXT,"  +
+                    ReceptaDiaMenuContracte.ReceptaDiaMenuEntry.COLUMN_NAME_MENU_NAME + " TEXT," +
+                    ReceptaDiaMenuContracte.ReceptaDiaMenuEntry.COLUMN_NAME_DIA_NAME + " TEXT," +
+                    ReceptaDiaMenuContracte.ReceptaDiaMenuEntry.COLUMN_NAME_MOMENT + " TEXT" +
+                    ")";
+
     private static final String SQL_CREATE_ENTRIES_RECEPTES_MENU =
             "CREATE TABLE IF NOT EXISTS " + ReceptaMenuContracte.ReceptaMenuEntry.TABLE_NAME + " (" +
                     ReceptaMenuContracte.ReceptaMenuEntry._ID + " INTEGER PRIMARY KEY," +
@@ -72,9 +82,9 @@ public class DbHelper extends SQLiteOpenHelper {
 
     //----- inserts receptes
     private String[] nomsReceptes = {
-        "pulpo_gallega",
-        "espaguetti_carbonara",
-        "solomillo_a_la_pimienta",
+        "pulpo gallega",
+        "espaguetti carbonara",
+        "solomillo a la pimienta",
         "paella"
     };
 
@@ -113,7 +123,7 @@ public class DbHelper extends SQLiteOpenHelper {
     private void InsertsReceptes(SQLiteDatabase db) {
         for (int i=0; i<nomsReceptes.length; i++) {
             ContentValues values = new ContentValues();
-            values.put(DbHelper.ReceptaContracte.ReceptaEntry.COLUMN_NAME_RECEPTA_NAME, nomsReceptes[i]);
+            values.put(DbHelper.ReceptaContracte.ReceptaEntry.COLUMN_NAME_RECEPTA_NAME, (nomsReceptes[i]));
             values.put(DbHelper.ReceptaContracte.ReceptaEntry.COLUMN_NAME_RECEPTA_DESCRIPTION, descripcions[i]);
             values.put(DbHelper.ReceptaContracte.ReceptaEntry.COLUMN_NAME_RECEPTA_SUGGERIMENTS, " ");
             values.put(DbHelper.ReceptaContracte.ReceptaEntry.COLUMN_NAME_FAVOURITE, "no");
@@ -124,9 +134,11 @@ public class DbHelper extends SQLiteOpenHelper {
     public void inputs() throws IOException {
         for (int i = 0; i < nomsReceptes.length; i++) {
             String rec = nomsReceptes[i];
-            int id = context.getResources().getIdentifier(rec, "drawable",
-                    context.getPackageName());
+            //String recFoto = rec.substring(0,1).toLowerCase() +  rec.substring(1).replace(" ","_");
+            String recFoto = rec.replace(" ","_");
+            int id = context.getResources().getIdentifier(recFoto, "drawable", context.getPackageName());
             Bitmap img = BitmapFactory.decodeResource(context.getResources(), id);
+            Fotos.eliminaFoto(recFoto,context);
             Fotos.saveToInternalSorage(context, img, rec);
         }
     }
@@ -179,6 +191,7 @@ public class DbHelper extends SQLiteOpenHelper {
         sqLiteDatabase.execSQL(SQL_CREATE_ENTRIES_MENU);
         sqLiteDatabase.execSQL(SQL_CREATE_ENTRIES_RECEPTES_MENU);
         sqLiteDatabase.execSQL(SQL_CREATE_ENTRIES_DIA_MENU);
+        sqLiteDatabase.execSQL(SQL_CREATE_ENTRIES_RECEPTA_DIA_MENU);
     }
 
     @Override
@@ -189,6 +202,7 @@ public class DbHelper extends SQLiteOpenHelper {
         sqLiteDatabase.execSQL(SQL_CREATE_ENTRIES_INGREDIENT_SUBSTITUT);
         sqLiteDatabase.execSQL(SQL_CREATE_ENTRIES_RECEPTES_MENU);
         sqLiteDatabase.execSQL(SQL_CREATE_ENTRIES_DIA_MENU);
+        sqLiteDatabase.execSQL(SQL_CREATE_ENTRIES_RECEPTA_DIA_MENU);
     }
 
     public final class ReceptaContracte {
@@ -223,6 +237,19 @@ public class DbHelper extends SQLiteOpenHelper {
             public static final String COLUMN_NAME_DIA_MENU_ID = "id";
             public static final String COLUMN_NAME_DIA_MENU_NAME = "nomDiaMenu";
             public static final String COLUMN_NAME_MENU_NAME = "nomMenu";
+        }
+    }
+
+    public final class ReceptaDiaMenuContracte {
+        public ReceptaDiaMenuContracte() {}
+
+        public abstract class ReceptaDiaMenuEntry implements BaseColumns {
+            public static final String TABLE_NAME = "receptadiamenu";
+            public static final String COLUMN_NAME_RECEPTA_DIA_ID = "id";
+            public static final String COLUMN_NAME_RECEPTA_DIA_NAME = "nomRecepta";
+            public static final String COLUMN_NAME_MENU_NAME = "nomMenu";
+            public static final String COLUMN_NAME_DIA_NAME = "nomDia";
+            public static final String COLUMN_NAME_MOMENT = "nomMoment";
         }
     }
 
